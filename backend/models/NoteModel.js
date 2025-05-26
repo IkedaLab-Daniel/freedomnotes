@@ -1,0 +1,9 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose
+
+const noteSchema = new Schema({
+    title: String,
+    body: String,
+    tags: [],
+    user_id: String
+}, { timestamps: true })
