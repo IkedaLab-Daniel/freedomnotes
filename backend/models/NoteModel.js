@@ -25,12 +25,25 @@ noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
 }
 
 noteSchema.statics.getnotes = async function (){
-
     const note = this.find({});
     if (!note){
         throw Error ('No notes found')
     }
 
+    return note
+}
+
+noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id ) {
+    if (!title || !body || !tags || !user_id){
+        throw Error ('Title field empty');
+    }
+
+    // TODO : Check if the NEW TITLE is already taken
+
+    const note = this.findOneAndUpdate(
+        { _id : _id,},
+        { title: title, body : body, tags : tags, user_id : user_id }
+    )
     return note
 }
 

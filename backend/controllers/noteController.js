@@ -19,7 +19,21 @@ const getnotes = async (req, res) => {
     }
 }
 
+const updatenote = async (req, res) => {
+    const _id = req.params.id
+    const { title, body, tags, user_id } = req.body
+
+    try{
+        const note = await Note.updatenote(_id, title, body, tags, user_id);
+        res.status(200).json({message : "note updated", note: note})
+    } catch (error){
+        res.status(400).json({ error : error.message })
+    }
+
+}
+
 module.exports = {
     createnote,
-    getnotes
+    getnotes,
+    updatenote,
 }
