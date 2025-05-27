@@ -24,4 +24,14 @@ noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
     return note
 }
 
+noteSchema.statics.getnotes = async function (){
+
+    const note = this.find({});
+    if (!note){
+        throw Error ('No notes found')
+    }
+
+    return note
+}
+
 module.exports = mongoose.model('Note', noteSchema)
