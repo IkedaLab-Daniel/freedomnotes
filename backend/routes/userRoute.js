@@ -16,7 +16,7 @@ router.post('/login', loginUser)
 // signup route
 router.post('/signup', signupUser)
 
-// update route
+// TODO update route
 router.patch('/:id', updateUser)
 
 module.exports = router
