@@ -2,17 +2,24 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 
+// > Routers
 const UserRoutes = require('./routes/userRoute');
+const NoteRoute = require('./routes/noteRoute');
 
 const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  console.log('Headers:', req.headers);
+  if (Object.keys(req.body).length) {
+    console.log('Body:', req.body);
+  }
   next();
 });
 
-// ? routes
-app.use('/api/user', UserRoutes)
+// ? routes | middleware
+app.use('/api/user', UserRoutes);
+app.use('/api/note', NoteRoute);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

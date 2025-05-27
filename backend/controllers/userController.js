@@ -15,7 +15,6 @@ const loginUser = async (req, res) => {
 
 const signupUser = async (req, res) => {
     const { username , password } = req.body
-
     try{
         const user = await User.signup(username, password)
         res.status(200).json({ message: "User create " + username})
