@@ -5,10 +5,11 @@ const noteSchema = new Schema({
     title: String,
     body: String,
     tags: [],
-    user_id: String
+    user_id: String,
+    status: String
 }, { timestamps: true })
 
-// ? Statics
+// ? Static for creating note
 noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
     if (!title || !body || !user_id){
         throw Error("Required field/s not empty")
@@ -24,6 +25,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
     return note
 }
 
+// ? static for getting ALL notes
 noteSchema.statics.getnotes = async function (){
     const note = this.find({});
     if (!note){
@@ -33,6 +35,7 @@ noteSchema.statics.getnotes = async function (){
     return note
 }
 
+// ? static to update a note
 noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id ) {
     if (!title || !body || !tags || !user_id){
         throw Error ('Title field empty');
@@ -45,6 +48,21 @@ noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id
         { title: title, body : body, tags : tags, user_id : user_id }
     )
     return note
+}
+
+// ? static for deleting a note
+noteSchema.statics.deletenote = async function ( _id ) {
+    if (!_id){
+        throw Error("Note's ID required");
+    }
+    
+    const note = this.findOneAndDelete({_id: _id});
+
+    if (!note){
+        throw Error("Note does not exists")
+    }
+
+    return note;
 }
 
 module.exports = mongoose.model('Note', noteSchema)

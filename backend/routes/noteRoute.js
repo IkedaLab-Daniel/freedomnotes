@@ -6,6 +6,7 @@ const {
     createnote,
     getnotes,
     updatenote,
+    deleteNote,
 } = require('../controllers/noteController');
 
 // > middlewares
@@ -19,5 +20,8 @@ router.post('/', requireAuth, createnote);
 
 // ? Update a note
 router.patch('/:id', requireAuth, updatenote);
+
+// ? Delete a note
+router.delete('/:id', requireAuth, deleteNote);
 
 module.exports = router

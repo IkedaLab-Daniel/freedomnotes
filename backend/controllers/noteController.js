@@ -32,8 +32,23 @@ const updatenote = async (req, res) => {
 
 }
 
+const deleteNote = async (req, res) => {
+    const _id  = req.params.id
+
+    try{
+        const note = await Note.deletenote( _id );
+        if (!note){
+            throw Error("Note does not exists")
+        }
+        res.status(200).json( { message: "Note deleted (literaly)", note : note} );
+    } catch (error){
+        res.status(400).json( { error: error.message } );
+    }
+}
+
 module.exports = {
     createnote,
     getnotes,
     updatenote,
+    deleteNote,
 }
