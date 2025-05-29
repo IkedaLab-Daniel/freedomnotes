@@ -54,7 +54,21 @@ const archiveNote = async (req, res) => {
         if (!note){
             res.status(404).json( {message : "Note ID not found"})
         }
-        res.status(200).json({ message: "Note archieved"});
+        res.status(200).json({ message: "Note archieved",  note : note});
+    } catch (error){
+        res.status(400).json({ error : error.message})
+    }
+}
+
+const approveNote = async (req, res) => {
+    const _id = req.params.id;
+    
+    try{
+        const note = await Note.approveNote( _id );
+        if (!note){
+            res.status(404).json( {message : "Note ID not found"})
+        }
+        res.status(200).json({ message: "Note Approved!", note : note});
     } catch (error){
         res.status(400).json({ error : error.message})
     }
@@ -66,4 +80,5 @@ module.exports = {
     updatenote,
     deleteNote,
     archiveNote,
+    approveNote,
 }

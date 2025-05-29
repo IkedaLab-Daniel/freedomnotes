@@ -77,4 +77,15 @@ noteSchema.statics.archiveNote = async function ( _id ){
     return note;
 }
 
+// ? static for approving a note
+noteSchema.statics.approveNote = async function ( _id ){
+    if (!_id){
+        throw Error("No Note's ID on payload")
+    }
+    
+    note = await this.findOneAndUpdate( { _id : _id }, { status: "approved"} )
+
+    return note;
+}
+
 module.exports = mongoose.model('Note', noteSchema)

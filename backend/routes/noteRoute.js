@@ -8,6 +8,7 @@ const {
     updatenote,
     deleteNote,
     archiveNote,
+    approveNote,
 } = require('../controllers/noteController');
 
 // > middlewares
@@ -27,5 +28,8 @@ router.patch('/:id', requireAuth, updatenote);
 
 // ? Archive a  note
 router.patch('/:id/archive', requireAuth, archiveNote);
+
+// ? approveNote
+router.patch('/:id/approve', requireAuth, approveNote);
 
 module.exports = router
