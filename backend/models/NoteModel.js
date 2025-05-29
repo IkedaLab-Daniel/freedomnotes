@@ -6,11 +6,12 @@ const noteSchema = new Schema({
     body: String,
     tags: [String],
     user_id: String,
+    board_id: String,
     status: String
 }, { timestamps: true })
 
 // ? Static for creating note
-noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
+noteSchema.statics.createnote = async function ( title, body, tags, board_id, user_id ) {
     if (!title || !body || !user_id){
         throw Error("Required field/s not empty")
     }
@@ -20,7 +21,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
         throw Error('This title already exist:', title)
     }
 
-    const note = await this.create( {title: title, body : body, tags : tags, user_id, status : "pending"} )
+    const note = await this.create( {title: title, body : body, tags : tags, board_id, user_id, status : "pending"} )
 
     return note
 }
