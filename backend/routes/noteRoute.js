@@ -12,7 +12,7 @@ const {
 } = require('../controllers/noteController');
 
 // > middlewares
-const requireAuth = require('../middlewares/requireAuth');
+const { requireAuth, requireAdmin } = require('../middlewares/requireAuth');
 
 // ? Get all notes
 router.get('/', getnotes);
@@ -21,7 +21,7 @@ router.get('/', getnotes);
 router.post('/', requireAuth, createnote);
 
 // ? Delete a note
-router.delete('/:id', requireAuth, deleteNote);
+router.delete('/:id', requireAuth, requireAdmin, deleteNote);
 
 // ? Update a note
 router.patch('/:id', requireAuth, updatenote);
@@ -30,6 +30,6 @@ router.patch('/:id', requireAuth, updatenote);
 router.patch('/:id/archive', requireAuth, archiveNote);
 
 // ? approveNote
-router.patch('/:id/approve', requireAuth, approveNote);
+router.patch('/:id/approve', requireAuth, requireAdmin, approveNote);
 
 module.exports = router

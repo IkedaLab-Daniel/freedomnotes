@@ -9,14 +9,14 @@ const {
 } = require('../controllers/boardController');
 
 // > middlewares
-const requireAuth = require('../middlewares/requireAuth');
+const { requireAuth, requireAdmin } = require('../middlewares/requireAuth');
 
 // > endpoints
 // ? Create new board
-router.post('/', requireAuth, createBoard);
+router.post('/', requireAuth, requireAdmin, createBoard);
 
 // ? Update board status
-router.patch('/:id', requireAuth, changeBoardStatus);
+router.patch('/:id', requireAuth, requireAdmin, changeBoardStatus);
 
 // ? Get all boards
 router.get('/', getBoards);

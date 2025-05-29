@@ -29,4 +29,14 @@ const requireAuth = async (req, res, next) => {
     }
 }
 
-module.exports = requireAuth;
+const requireAdmin = (req, res, next) => {
+    if (!req.user || req.user.role !== "admin"){
+        res.status(403).json({ error: "拒绝访问。"})
+    }
+    next();
+}
+
+module.exports = {
+    requireAuth,
+    requireAdmin
+};
