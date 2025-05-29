@@ -7,6 +7,7 @@ const {
     getnotes,
     updatenote,
     deleteNote,
+    archiveNote,
 } = require('../controllers/noteController');
 
 // > middlewares
@@ -18,10 +19,13 @@ router.get('/', getnotes);
 // ? Create new note
 router.post('/', requireAuth, createnote);
 
+// ? Delete a note
+router.delete('/:id', requireAuth, deleteNote);
+
 // ? Update a note
 router.patch('/:id', requireAuth, updatenote);
 
-// ? Delete a note
-router.delete('/:id', requireAuth, deleteNote);
+// ? Archive a  note
+router.patch('/:id/archive', requireAuth, archiveNote);
 
 module.exports = router

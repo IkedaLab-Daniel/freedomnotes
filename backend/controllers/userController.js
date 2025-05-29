@@ -32,6 +32,7 @@ const signupUser = async (req, res) => {
     }
 } 
 
+// TODO
 const updateUser = (req, res) => {
     console.log('Hello Ice')
 } 

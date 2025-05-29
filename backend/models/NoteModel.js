@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const { findOne, findOneAndUpdate } = require('./UserModel');
 const { Schema } = mongoose
 
 const noteSchema = new Schema({
     title: String,
     body: String,
-    tags: [],
+    tags: [String],
     user_id: String,
     status: String
 }, { timestamps: true })
@@ -20,7 +21,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, user_id ) {
         throw Error('This title already exist:', title)
     }
 
-    const note = await this.create( {title: title, body : body, tags : tags, user_id} )
+    const note = await this.create( {title: title, body : body, tags : tags, user_id, status : "pending"} )
 
     return note
 }
@@ -61,6 +62,17 @@ noteSchema.statics.deletenote = async function ( _id ) {
     if (!note){
         throw Error("Note does not exists")
     }
+
+    return note;
+}
+
+// ? static for archiving a note
+noteSchema.statics.archiveNote = async function ( _id ){
+    if (!_id){
+        throw Error("No Note's ID on payload")
+    }
+    
+    note = await this.findOneAndUpdate( { _id : _id }, { status: "archived"} )
 
     return note;
 }

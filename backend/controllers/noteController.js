@@ -38,11 +38,25 @@ const deleteNote = async (req, res) => {
     try{
         const note = await Note.deletenote( _id );
         if (!note){
-            throw Error("Note does not exists")
+            res.status(404).json( {message : "Note ID not found"})
         }
         res.status(200).json( { message: "Note deleted (literaly)", note : note} );
     } catch (error){
         res.status(400).json( { error: error.message } );
+    }
+}
+
+const archiveNote = async (req, res) => {
+    const _id = req.params.id;
+    
+    try{
+        const note = await Note.archiveNote( _id );
+        if (!note){
+            res.status(404).json( {message : "Note ID not found"})
+        }
+        res.status(200).json({ message: "Note archieved"});
+    } catch (error){
+        res.status(400).json({ error : error.message})
     }
 }
 
@@ -51,4 +65,5 @@ module.exports = {
     getnotes,
     updatenote,
     deleteNote,
+    archiveNote,
 }
