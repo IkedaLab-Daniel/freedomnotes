@@ -5,6 +5,7 @@ const express = require('express');
 // > Routers
 const UserRoutes = require('./routes/userRoute');
 const NoteRoute = require('./routes/noteRoute');
+const BoardRoutes = require('./routes/boardRoute');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 // ? routes | middleware
 app.use('/api/user', UserRoutes);
 app.use('/api/note', NoteRoute);
+app.use('/api/board', BoardRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
