@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     createBoard,
     changeBoardStatus,
+    getBoards,
 } = require('../controllers/boardController');
 
 // > middlewares
@@ -16,5 +17,8 @@ router.post('/', requireAuth, createBoard);
 
 // ? Update board status
 router.patch('/:id', requireAuth, changeBoardStatus);
+
+// ? Get all boards
+router.get('/', getBoards);
 
 module.exports = router

@@ -24,7 +24,21 @@ const changeBoardStatus = async (req, res) => {
 
 }
 
+const getBoards = async (req, res) => {
+    try {
+        const boards = await Board.getAllBoards();
+        const boardsWithTotal = boards.map(board => ({
+            ...board.toObject(),
+            totalNotes: board.notes.length
+        }));
+        res.status(200).json({ boards: boardsWithTotal });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createBoard,
     changeBoardStatus,
+    getBoards,
 }

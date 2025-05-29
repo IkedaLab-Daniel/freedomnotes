@@ -38,5 +38,11 @@ boardSchema.statics.boardStatus = async function ( _id, status ){
     return board;
 }
 
+// ? static for getting all boards
+boardSchema.statics.getAllBoards = async function(){ 
+    const boards = await this.find();
+    return boards
+}
+
 module.exports = mongoose.model('Board', boardSchema);
 
