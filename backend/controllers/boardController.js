@@ -11,6 +11,20 @@ const createBoard = async (req, res) => {
     }
 }
 
+const changeBoardStatus = async (req, res) => {
+    const _id = req.params.id;
+    const { status } = req.body;
+
+    try{
+        const board = await Board.boardStatus( _id , status);
+        res.status(200).json( { message : "Board's status has been changed!", board : board} )
+    } catch (error){
+        res.status(400).json( { error: error.message } )
+    }
+
+}
+
 module.exports = {
     createBoard,
+    changeBoardStatus,
 }

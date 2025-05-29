@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { findOne, findOneAndUpdate } = require('./UserModel');
 const { Schema } = mongoose
 
 const noteSchema = new Schema({
