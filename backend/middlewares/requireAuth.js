@@ -13,10 +13,10 @@ const requireAuth = async (req, res, next) => {
     const token = authorization.split(' ')[1] // ? sample - authorization: 'Bearer <token here>'
 
     try {
-        const { _id } = jwt.verify(token, process.env.SECRET)
+        const { _id, role } = jwt.verify(token, process.env.SECRET)
         
         // ? append user to the 'req'
-        const user = await User.findOne({_id}).select('_id') // ? Only get and attach the _id key
+        const user = await User.findOne({_id}).select('_id role')
         if (!user){
             res.status(401).json({ error : "User not found" })
         }
@@ -30,8 +30,15 @@ const requireAuth = async (req, res, next) => {
 }
 
 const requireAdmin = (req, res, next) => {
-    if (!req.user || req.user.role !== "admin"){
-        res.status(403).json({ error: "拒绝访问。"})
+
+    if (!req.user){
+        return res.status(403).json({ error: "Missing req.user"});
+    }
+    if (!req.user.role){
+        return res.status(403).json( {error: "Missing req.user.role"})
+    }
+    if (req.user.role !== "admin"){
+        return res.status(403).json( {error: "You're ain't no Ice"})
     }
     next();
 }

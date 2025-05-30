@@ -61,10 +61,24 @@ noteSchema.statics.deletenote = async function ( _id ) {
         throw Error("Note's ID required");
     }
     
-    const note = this.findOneAndDelete({_id: _id});
+    const note = await this.findOneAndDelete({_id: _id});
 
     if (!note){
         throw Error("Note does not exists")
+    }
+
+    if (note.board_id) {
+        try{
+            await Board.findByIdAndUpdate(
+                note.board_id,
+                { $pull: { notes: note._id.toString() } }
+            );
+            console.log("Note",note.board_id, "has been removed to its board as well")
+        } catch (error){
+            console.log( {delBoardErr : error.message});
+        }
+    } else {
+        console.log('note.board_id is empty')
     }
 
     return note;
