@@ -46,9 +46,10 @@ const deleteNote = async (req, res) => {
     }
 }
 
+// TODO : If user's ID does not match with the note's user_id, throw error
 const archiveNote = async (req, res) => {
     const _id = req.params.id;
-    
+
     try{
         const note = await Note.archiveNote( _id );
         if (!note){

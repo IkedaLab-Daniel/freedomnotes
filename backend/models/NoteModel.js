@@ -67,6 +67,7 @@ noteSchema.statics.deletenote = async function ( _id ) {
         throw Error("Note does not exists")
     }
 
+    // ? Remove the note's ID on the Board's Notes Array
     if (note.board_id) {
         try{
             await Board.findByIdAndUpdate(
@@ -85,12 +86,31 @@ noteSchema.statics.deletenote = async function ( _id ) {
 }
 
 // ? static for archiving a note
-noteSchema.statics.archiveNote = async function ( _id ){
-    if (!_id){
+noteSchema.statics.archiveNote = async function ( note_id ){
+    if (!note_id){
         throw Error("No Note's ID on payload")
     }
     
-    note = await this.findOneAndUpdate( { _id : _id }, { status: "archived"} )
+    const note = await this.findOneAndUpdate( { _id : note_id }, { status: "archived"} )
+
+    if (!note){
+        throw Error("Note does not exist")
+    }
+
+    // ? Remove the note's ID on the Board's Notes Array
+    if (note.board_id || note.board_id !== null) {
+        try{
+            await Board.findByIdAndUpdate(
+                note.board_id,
+                { $pull: { notes: note._id.toString() } }
+            );
+            console.log("Note",note.board_id, "has been removed to its board as well")
+        } catch (error){
+            console.log( {delBoardErr : error.message});
+        }
+    } else {
+        console.log('note.board_id is empty')
+    }
 
     return note;
 }
