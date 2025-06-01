@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext';
 import toast from 'react-hot-toast';
 import '../css/login.css';
 
@@ -8,6 +9,8 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassowrd] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const { dispatch } = useAuthContext()
 
     const notifySuccess = (message) => {
         toast.success(message, {
@@ -61,9 +64,8 @@ const Login = () => {
         }
 
         if (response.ok){
-            localStorage.setItem('user', JSON.stringify(json));
-            console.log("Success: ");
-            notifySuccess(json.success)
+            localStorage.setItem('user', JSON.stringify(json));             dispatch({type: 'LOGIN', payload: json})
+            notifySuccess(`Logged in as ${json.username}`);
             setUsername('');
             setPassowrd('');
         }
