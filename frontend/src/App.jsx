@@ -2,9 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // > Components
 import Login from './pages/Login'
-import { Toaster } from 'react-hot-toast'
-
-// > Stylesheet
+import { Toaster } from 'react-hot-toast'// > Stylesheet
 import './App.css'
 
 function App() {
