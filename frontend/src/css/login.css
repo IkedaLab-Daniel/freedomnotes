@@ -67,9 +67,17 @@
     cursor: not-allowed;
 }
 
-#login .login-form p{
+#login .login-form a{
     text-align: center;
+    text-decoration: none;
+    transition: .2s;
 }
+
+#login .login-form a:hover{
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 
 
 

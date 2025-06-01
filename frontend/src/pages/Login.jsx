@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import '../css/login.css';
 
@@ -28,12 +29,6 @@ const Login = () => {
                     fontSize: "1.2rem", 
                   },
         });
-    }
-
-    const checkDisable = () => {
-        if (loading){
-            return true
-        }
     }
 
     const handleSubmit = async (e) => {
@@ -68,9 +63,9 @@ const Login = () => {
         if (response.ok){
             localStorage.setItem('user', JSON.stringify(json));
             console.log("Success: ");
-            const success = (json.message)
-            notifySuccess(success)
-            console.log(JSON.stringify(json));
+            notifySuccess(json.success)
+            setUsername('');
+            setPassowrd('');
         }
 
         setLoading(false)
@@ -104,7 +99,9 @@ const Login = () => {
                         >
                             { loading ? ('Loading') : ('Log In') }
                         </button>
-                        <p>Don't have an account? Sign Up</p>
+                        <Link to="/signup">
+                            <p>Don't have an account? Sign Up</p>
+                        </Link>
                     </form>
                 </div>
             </div>

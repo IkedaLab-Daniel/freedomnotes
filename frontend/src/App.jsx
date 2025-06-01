@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
 // > Components
 import Login from './pages/Login'
 import { Toaster } from 'react-hot-toast'
@@ -9,7 +11,22 @@ function App() {
 
   return (
     <>
-      <Login />
+      <BrowserRouter>
+        {/* ? Nav bar here */}
+        <div className="pages">
+          <Routes>
+            <Route
+              path='/login'
+              element = {<Login/>}
+            />
+            <Route
+              path='/signup'
+              element = {<Login/>}
+            />
+          </Routes>
+        </div>
+
+      </BrowserRouter>
       <Toaster />
     </>
   )
