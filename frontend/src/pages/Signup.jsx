@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext';
 import toast from 'react-hot-toast';
-import '../css/login.css';
+import '../css/signup.css';
 
-const Login = () => {
+const Signup = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassowrd] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
     const { dispatch } = useAuthContext()
@@ -38,19 +39,20 @@ const Login = () => {
         e.preventDefault()
         setLoading(true)
 
-        if (!username){
-            notifyError("Enter Username")
+        if (!username || !password || !confirmPassword){
+            notifyError("All fields must be filled!")
             setLoading(false)
             return
         }
 
-        if (!password){
-            notifyError("Enter Password")
+        if (password !== confirmPassword){
+            notifyError("Confirm Password does not match")
             setLoading(false)
+            setConfirmPassword('')
             return
         }
         
-        const response = await fetch('http://localhost:4000/api/user/login', {
+        const response = await fetch('http://localhost:4000/api/user/signup', {
             method: 'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({username, password})
@@ -64,9 +66,9 @@ const Login = () => {
         }
 
         if (response.ok){
-            localStorage.setItem('user', JSON.stringify(json));             
+            localStorage.setItem('user', JSON.stringify(json));
             dispatch({type: 'LOGIN', payload: json})
-            notifySuccess(`Logged in as @${json.username}`);
+            notifySuccess(`Welcome, @${json.username}`);
             setUsername('');
             setPassowrd('');
         }
@@ -76,9 +78,9 @@ const Login = () => {
     
     return(
         <>
-            <div id="login">
-                <div className="login-form">
-                    <h1>Log In</h1>
+            <div id="signup">
+                <div className="signup-form">
+                    <h1>Sign Up</h1>
                     <form>
                         <label htmlFor="username">Username</label>
                         <input 
@@ -96,14 +98,22 @@ const Login = () => {
                         value={password}
                         onChange={(e) => setPassowrd(e.target.value)}
                         />
+                        <label htmlFor="confirm password">Confirm Password</label>
+                        <input 
+                        type="Password" 
+                        name="confirm passowrd" 
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
                         <button 
                             onClick={handleSubmit}
                             disabled={loading}
                         >
-                            { loading ? ('Loading') : ('Log In') }
+                            { loading ? ('Loading') : ('Sign Up') }
                         </button>
-                        <Link to="/signup">
-                            <p>Don't have an account? Sign Up</p>
+                        <Link to="/login">
+                            <p>Already have an account? Log In</p>
                         </Link>
                     </form>
                 </div>
@@ -112,4 +122,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Signup

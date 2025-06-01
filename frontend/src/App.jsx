@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 // > Components
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
 import './App.css'
 
@@ -19,7 +20,7 @@ function App() {
             />
             <Route
               path='/signup'
-              element = {<Login/>}
+              element = {<Signup/>}
             />
           </Routes>
         </div>
