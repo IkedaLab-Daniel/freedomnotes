@@ -13,8 +13,7 @@ const loginUser = async (req, res) => {
         const user = await User.login( username , password);
         const token = signToken({ _id: user._id, role: user.role });
         res.status(200).json( { 
-            message : "Log In Successful!", 
-            user: { _id: user._id, username : user.username },
+            username: user.username,
             token : token
         } );
         console.log('A user successfully logged in:', user.username);
@@ -30,8 +29,10 @@ const signupUser = async (req, res) => {
     try{
         const user = await User.signup(username, password);
         const token = signToken(user._id);
-        res.status(200).json({ message: "User create " + username, user : user, token : token});
-    } catch (error){
+        res.status(200).json( { 
+            username: user.username,
+            token : token
+        } );    } catch (error){
         res.status(400).json({ error: error.message})
     }
 } 
