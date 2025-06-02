@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext';
-import toast from 'react-hot-toast';
+import { notifyError, notifySuccess } from '../hooks/useToaster';
 import '../css/signup.css';
 
 const Signup = () => {
@@ -12,28 +12,6 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
 
     const { dispatch } = useAuthContext()
-
-    const notifySuccess = (message) => {
-        toast.success(message, {
-                duration: 4000,
-                style: {
-                    border: "1px solid #4caf50", 
-                    padding: "10px 20px", 
-                    fontSize: "1.2rem", 
-                  },
-        });
-    }
-
-    const notifyError = (message) => {
-        toast.error(message, {
-                duration: 4000,
-                style: {
-                    border: "1px solidrgb(175, 76, 76)", 
-                    padding: "10px 20px", 
-                    fontSize: "1.2rem", 
-                  },
-        });
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -51,29 +29,35 @@ const Signup = () => {
             setConfirmPassword('')
             return
         }
+
+        try{
+            const response = await fetch('http://localhost:4000/api/user/signup', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({username, password})
+            })
+
+            const json = await response.json();
+
+            if (!response.ok){
+                setLoading(false);
+                notifyError(json.error)
+            }
+
+            if (response.ok){
+                localStorage.setItem('user', JSON.stringify(json));
+                dispatch({type: 'LOGIN', payload: json})
+                notifySuccess(`Welcome, @${json.username}`);
+                setUsername('');
+                setPassowrd('');
+            }
+
+            setLoading(false)
+        } catch(error){
+            notifyError("Opps! Server is offline")
+        }
         
-        const response = await fetch('http://localhost:4000/api/user/signup', {
-            method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify({username, password})
-        })
-
-        const json = await response.json();
-
-        if (!response.ok){
-            setLoading(false);
-            notifyError(json.error)
-        }
-
-        if (response.ok){
-            localStorage.setItem('user', JSON.stringify(json));
-            dispatch({type: 'LOGIN', payload: json})
-            notifySuccess(`Welcome, @${json.username}`);
-            setUsername('');
-            setPassowrd('');
-        }
-
-        setLoading(false)
+        setLoading(false);
     }
     
     return(
@@ -110,7 +94,7 @@ const Signup = () => {
                             onClick={handleSubmit}
                             disabled={loading}
                         >
-                            { loading ? ('Loading') : ('Sign Up') }
+                            { loading ? ('Loading...') : ('Sign Up') }
                         </button>
                         <Link to="/login">
                             <p>Already have an account? Log In</p>
