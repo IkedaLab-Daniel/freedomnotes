@@ -1,5 +1,5 @@
 import { useAuthContext } from "../hooks/useAuthContext"
-
+import Boards from "../components/Boards"
 const Home = () => {
 
     const { user, dispatch } = useAuthContext()
@@ -11,7 +11,7 @@ const Home = () => {
 
     return(
         <>
-            {user && <button onClick={handleLogout}>Log Out</button>}
+            <Boards />
         </>
     )
 }
