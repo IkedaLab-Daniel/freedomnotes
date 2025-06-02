@@ -28,28 +28,34 @@ const Login = () => {
             setLoading(false)
             return
         }
+
+        try{
+            const response = await fetch('http://localhost:4000/api/user/login', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({username, password})
+            })
+
+            const json = await response.json();
+
+            if (!response.ok){
+                setLoading(false);
+                notifyError(json.error)
+            }
+
+            if (response.ok){
+                localStorage.setItem('user', JSON.stringify(json));             
+                dispatch({type: 'LOGIN', payload: json})
+                notifySuccess(`Logged in as @${json.username}`);
+                setUsername('');
+                setPassowrd('');
+            }
+
+            setLoading(false)
+        } catch (error){
+            notifyError("Server offline ZZZ")
+        }
         
-        const response = await fetch('http://localhost:4000/api/user/login', {
-            method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify({username, password})
-        })
-
-        const json = await response.json();
-
-        if (!response.ok){
-            setLoading(false);
-            notifyError(json.error)
-        }
-
-        if (response.ok){
-            localStorage.setItem('user', JSON.stringify(json));             
-            dispatch({type: 'LOGIN', payload: json})
-            notifySuccess(`Logged in as @${json.username}`);
-            setUsername('');
-            setPassowrd('');
-        }
-
         setLoading(false)
     }
     
@@ -79,7 +85,7 @@ const Login = () => {
                             onClick={handleSubmit}
                             disabled={loading}
                         >
-                            { loading ? ('Loading') : ('Log In') }
+                            { loading ? ('Loading...') : ('Log In') }
                         </button>
                         <Link to="/signup">
                             <p>Don't have an account? Sign Up</p>

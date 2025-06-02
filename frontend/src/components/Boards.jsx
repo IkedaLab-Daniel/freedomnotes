@@ -3,19 +3,25 @@ import { notifySuccess, notifyError } from "../hooks/useToaster"
 
 const Boards = () => {
 
-    const [ boards, setBoards ] = useState([])
+    const [ boards, setBoards ] = useState(null)
 
     const fetchBoard = async () => {
-        const response = await fetch('http://localhost:4000/api/board')
-        const json = await response.json();
-        if (response.ok){
-            console.log("Boards fetch OK");
-            console.log((json))
+
+        try{
+            const response = await fetch('http://localhost:4000/api/board')
+            const json = await response.json();
+            if (response.ok){
+                console.log("Boards fetch OK");
+                console.log((json))
+            }
+
+            if(!response.ok){
+                notifyError('Boards not fetched! Server Error')
+            }
+            setBoards(json.boards)
+        } catch (error){
+            notifyError("Server Down")
         }
-        if(!response.ok){
-            notifyError('Boards not fetched! Server Error')
-        }
-        setBoards(json.boards)
     }
 
     useEffect(() => {
@@ -27,7 +33,7 @@ const Boards = () => {
             <section id="boards">
                 Boards section
                 <h1>Hello, Ice</h1>
-                {boards.map((board, index) => (
+                {boards && boards.map((board, index) => (
                     <div key={board._id || index}>
                         <p>{board.board_name}</p>
                         <p>Total Notes: {board.totalNotes}/20</p>
