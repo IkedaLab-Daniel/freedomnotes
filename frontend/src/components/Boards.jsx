@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { toast } from 'react-hot-toast'
+import { useState, useEffect } from "react"
+import { notifySuccess, notifyError } from "../hooks/useToaster"
 
 const Boards = () => {
 
@@ -7,24 +7,35 @@ const Boards = () => {
 
     const fetchBoard = async () => {
         const response = await fetch('http://localhost:4000/api/board')
-
+        const json = await response.json();
         if (response.ok){
             console.log("Boards fetch OK");
-            console.log(JSON.stringify(response))
+            console.log((json))
         }
-
         if(!response.ok){
-
+            notifyError('Boards not fetched! Server Error')
         }
-        
+        setBoards(json.boards)
     }
+
+    useEffect(() => {
+        fetchBoard();
+    }, []);
     
     return(
         <>
             <section id="boards">
                 Boards section
                 <h1>Hello, Ice</h1>
-                <h1 onClick={fetchBoard}>Fetch Board</h1>
+                {boards.map((board, index) => (
+                    <div key={board._id || index}>
+                        <p>{board.board_name}</p>
+                        <p>Total Notes: {board.totalNotes}/20</p>
+                        <p>Status: {(board.status).toUpperCase()}</p>
+                        <hr />
+                    </div>
+                ))}
+                <h1>End</h1>
             </section>
         </>
     )
