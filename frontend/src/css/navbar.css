@@ -1,0 +1,76 @@
+#navbar{
+    height: auto;
+    background-color: #393E46;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+#navbar a{
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: .4s;
+}
+
+#navbar a:hover{
+    font-weight: 600;
+    transform: translateY(-2px);
+    text-decoration: underline;
+}
+
+#navbar .user-buttons-container{
+    display: flex;
+    gap: 10px;
+}
+
+#navbar .user-buttons-container button{
+    font-weight: 600;
+    transition: .4s;
+}
+
+#navbar .user-buttons-container button:hover{
+    transform: translateY(-4px);
+    cursor: pointer;
+}
+
+
+#navbar .user-buttons-container button.login{
+    background-color: rgba(248, 248, 248, 0);
+    border: 2px solid rgb(210, 210, 210);
+    padding: 5px 15px;
+}
+
+#navbar .user-buttons-container button.signup{
+    background-color: rgb(235, 235, 235);
+    border: 2px solid rgb(237, 237, 237);
+    color: rgb(31, 31, 31);
+    padding: 5px 15px;
+}
+
+#navbar .user-buttons-container button.logout{
+    background-color: rgb(254, 171, 171);
+    border: 2px solid rgb(255, 167, 167);
+    color: rgb(173, 44, 44);
+    padding: 5px 15px;
+}
+
+#navbar .logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#navbar .logo-container img{
+    width: 50px;
+}
+
+#navbar .logo-container h1{
+    font-size: 1.7rem;
+    color: #fcdc8a;
+}

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
+import NavBar from './components/NavBar'
 import { useAuthContext } from './hooks/useAuthContext'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
 import './App.css'
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {/* ? Nav bar here */}
+        <NavBar/>
         <div className="pages">
           <Routes>
             <Route
