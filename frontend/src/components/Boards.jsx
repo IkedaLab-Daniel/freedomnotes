@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
-
+import '../css/boards.css'
 const Boards = () => {
 
     const [ boards, setBoards ] = useState(null)
@@ -31,17 +31,23 @@ const Boards = () => {
     return(
         <>
             <section id="boards">
-                Boards section
-                <h1>Hello, Ice</h1>
-                {boards && boards.map((board, index) => (
-                    <div key={board._id || index}>
-                        <p>{board.board_name}</p>
-                        <p>Total Notes: {board.totalNotes}/20</p>
-                        <p>Status: {(board.status).toUpperCase()}</p>
-                        <hr />
-                    </div>
-                ))}
-                <h1>End</h1>
+                <div className="heading">
+                    <h1>Boards</h1>
+                </div>
+
+                <div className="boards-container">
+                    {boards && boards.map((board, index) => (
+                        <div className="board" key={board._id || index}>
+                            <p className="board-title">{board.board_name}</p>
+                            <div className="board-bg">
+                                <p className={`board-status ${board.status}`}>{(board.status).toUpperCase()}</p>
+                                <p className="board-notes-total">{board.totalNotes}/20</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+
             </section>
         </>
     )

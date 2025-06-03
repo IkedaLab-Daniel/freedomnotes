@@ -1,0 +1,58 @@
+section{
+    margin: 20px;
+    padding: 20px;
+    background-color: #393f46;
+}
+
+section .heading{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+section .boards-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+section .board .board-bg {
+    background-image: url('../assets/board-bg.svg');
+    background-size: cover;         /* Make the image cover the container */
+    background-repeat: no-repeat;    /* Prevent tiling */
+    background-position: center; 
+    min-width: 180px;    /* Center the image */
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+section .board .board-title{
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+section .board .board-status.open{
+    color: green;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 28px;
+    line-height: 15px;
+}
+
+section .board .board-status.closed{
+    color: red;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 28px;
+    line-height: 15px;
+}
+
+section .board .board-notes-total{
+    color: black;
+    font-size: 2rem;
+    font-weight: 600;
+}
