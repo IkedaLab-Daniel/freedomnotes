@@ -17,12 +17,27 @@ section .boards-container{
     gap: 10px;
 }
 
+section .board{
+    transition: .2s;
+}
+
+section .board:hover{
+    opacity: 0.8;
+    cursor: pointer;
+    transform: scale(105%);
+}
+
+section .board:active{
+    opacity: 0.5;
+    transform: translateY(4px);
+}
+
 section .board .board-bg {
     background-image: url('../assets/board-bg.svg');
-    background-size: cover;         /* Make the image cover the container */
-    background-repeat: no-repeat;    /* Prevent tiling */
+    background-size: cover;        
+    background-repeat: no-repeat;  
     background-position: center; 
-    min-width: 180px;    /* Center the image */
+    min-width: 180px;
     min-height: 180px;
     display: flex;
     align-items: center;
