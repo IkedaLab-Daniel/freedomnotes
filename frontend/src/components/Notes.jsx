@@ -1,3 +1,5 @@
+// TODO : Add pagination
+
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import '../css/notes.css'

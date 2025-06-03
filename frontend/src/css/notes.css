@@ -7,7 +7,7 @@ section{
 section .heading{
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 section .notes-container{
@@ -27,6 +27,18 @@ section .note{
     flex-direction: column;
     justify-content: space-between;
     border-radius: 4px;
+    transition: .4s;
+}
+
+section .note:hover{
+    cursor: pointer;
+    transform: translateY(-4px);
+    opacity: 0.8;
+}
+
+section .note:active{
+    transform: scale(95%);
+    opacity: 0.5;
 }
 
 section .note .note-title{
