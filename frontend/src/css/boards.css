@@ -32,7 +32,7 @@ section .board .board-bg {
 section .board .board-title{
     font-size: 1.5rem;
     text-align: center;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 section .board .board-status.open{

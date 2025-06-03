@@ -1,17 +1,12 @@
-import { useAuthContext } from "../hooks/useAuthContext"
 import Boards from "../components/Boards"
+import Notes from "../components/Notes"
+
 const Home = () => {
-
-    const { user, dispatch } = useAuthContext()
     
-    const handleLogout = () => {
-        localStorage.removeItem('user')
-        dispatch( {type: 'LOGOUT'} )
-    }
-
     return(
         <>
             <Boards />
+            <Notes />
         </>
     )
 }

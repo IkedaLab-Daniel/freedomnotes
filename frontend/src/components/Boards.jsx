@@ -11,14 +11,13 @@ const Boards = () => {
             const response = await fetch('http://localhost:4000/api/board')
             const json = await response.json();
             if (response.ok){
-                console.log("Boards fetch OK");
-                console.log((json))
+                setBoards(json.boards)
             }
 
             if(!response.ok){
                 notifyError('Boards not fetched! Server Error')
             }
-            setBoards(json.boards)
+
         } catch (error){
             notifyError("Server Down")
         }
