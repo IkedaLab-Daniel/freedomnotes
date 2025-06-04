@@ -82,7 +82,10 @@ section .pagination-container .pagination p:hover{
     cursor: pointer;
 }
 
-
+section .pagination-container .pagination .disabled:hover{
+    cursor: not-allowed;
+    color: rgb(212, 129, 129);
+}
 
 section .loading{
     text-align: center;
