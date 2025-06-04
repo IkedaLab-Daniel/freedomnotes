@@ -4,21 +4,25 @@ import '../css/boards.css'
 const Boards = () => {
 
     const [ boards, setBoards ] = useState(null)
+    const [ isLoading, setIsLoading ] = useState(false)
 
     const fetchBoard = async () => {
-
+        setIsLoading(true)
         try{
             const response = await fetch('http://localhost:4000/api/board')
             const json = await response.json();
             if (response.ok){
+                setIsLoading(false)
                 setBoards(json.boards)
             }
 
             if(!response.ok){
+                setIsLoading(false)
                 notifyError('Boards not fetched! Server Error')
             }
 
         } catch (error){
+            setIsLoading(false)
             notifyError("Server Down")
         }
     }
@@ -35,6 +39,8 @@ const Boards = () => {
                 </div>
 
                 <div className="boards-container">
+                    { isLoading && (<p>Loading ...</p>)}
+                    { !boards && (<p>No Boards</p>)}
                     {boards && boards.map((board, index) => (
                         <div className="board" key={board._id || index}>
                             <p className="board-title">{board.board_name}</p>
