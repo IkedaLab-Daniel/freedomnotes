@@ -55,6 +55,35 @@ section .note .note-date{
     color: rgb(77, 77, 77);
 }
 
+section .pagination-container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+section .pagination-container .pagination{
+    border: 2px solid rgb(238, 238, 238);
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
+section .pagination-container .pagination p{
+    width: 32%;
+    text-align: center;
+    font-weight: 600;
+    transition: .2s;
+}
+
+section .pagination-container .pagination p:hover{
+    color: white;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+
+
 section .loading{
     text-align: center;
     font-size: 1.2rem;

@@ -8,6 +8,8 @@ const Notes = () => {
 
     const [notes, setNotes] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState();
 
     function formatDate(dateString) {
     const date = new Date(dateString);
@@ -22,12 +24,13 @@ const Notes = () => {
         setIsLoading(true);
 
         try{
-            const response = await fetch('http://localhost:4000/api/note')
+            const response = await fetch(`http://localhost:4000/api/note?page=${page}`)
             const json = await response.json();
 
             if (response.ok){
                 setIsLoading(false);
-                setNotes(json.notes);
+                setNotes(json.notes.notes);
+                setTotalPages(json.notes.totalPages);
             }
 
             if (!response.ok){
@@ -63,6 +66,17 @@ const Notes = () => {
                         </div>
                     ))}
                 </div>
+
+                {!isLoading && (
+                    <div className="pagination-container">
+                        <div className="pagination">
+                            <p className='prev'>{`<`}</p>
+                            <p className='pagenum'>{page}/{totalPages}</p>
+                            <p className='next'>{`>`}</p>
+                        </div>
+                    </div>
+                )}
+
                 { isLoading && (
                     <p className='loading'>Loading ...</p>
                 )}
