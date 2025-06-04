@@ -12,8 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
-  const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  console.log(`[${new Date().toISOString()}] ${req.method} ${fullUrl}`);
+  const start = Date.now();
+  res.on('finish', () => {
+    const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+    const duration = Date.now() - start;
+    console.log(
+      `[${new Date().toISOString()}] ${req.method} ${fullUrl} ${res.statusCode} (${duration}ms)`
+    );
+  });
   next();
 });
 
