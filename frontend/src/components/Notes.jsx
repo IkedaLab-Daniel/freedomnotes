@@ -11,6 +11,8 @@ const Notes = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState();
     const [nextPage, setNextPage] = useState();
+    const [prevPage, setPrevPage] = useState(1);
+    const [ atFirstPage, setAtFirstPage] = useState();
     const [ atLastPage, setAtLastPage] = useState();
 
     function formatDate(dateString) {
@@ -34,6 +36,7 @@ const Notes = () => {
                 setNotes(json.notes.notes);
                 setTotalPages(json.notes.totalPages);
                 setNextPage(prev => (page + 1))
+                setAtFirstPage(true)
             }
 
             if (!response.ok){
@@ -61,13 +64,7 @@ const Notes = () => {
                 }
 
                 if (totalPages == (page + 1)){
-                    setIsLoading(false)
-                    setNextPage(prev => (prev))
-                    setNotes(json.notes.notes)
                     setAtLastPage(true)
-                    setPage(prev => (prev + 1))
-                    console.log("REACH LAST PAGE")
-                    return
                 }
 
                 setIsLoading(false);
@@ -76,11 +73,46 @@ const Notes = () => {
                 setNextPage(prev => (prev + 1))
             }
 
+            if (!response.ok){
+                setIsLoading(false);
+                notifyError('Something went wrong...')
+            }
+
         } catch (error){
             setIsLoading(false);
             notifyError('Server is offline ZZZ');
         }
     }
+
+    const fetchPrevPage = async () => {
+        if (page <= 1) {
+            setAtFirstPage(true);
+            return;
+        }
+        setIsLoading(true);
+
+        try {
+            const prev = page - 1;
+            const response = await fetch(`http://localhost:4000/api/note?page=${prev}`);
+            const json = await response.json();
+
+            if (response.ok) {
+                setIsLoading(false);
+                setPage(prev);
+                setNextPage(prev => ( prev - 1))
+                setNotes(json.notes.notes);
+                setAtLastPage(false);
+                if (prev === 1) setAtFirstPage(true);
+                else setAtFirstPage(false);
+            } else {
+                setIsLoading(false);
+                notifyError('Something went wrong...');
+            }
+        } catch (error) {
+            setIsLoading(false);
+            notifyError('Server is offline ZZZ');
+        }
+    };
 
     useEffect( () => {
         fetchNotes();
@@ -109,14 +141,19 @@ const Notes = () => {
                 {(!isLoading && totalPages) && (
                     <div className="pagination-container">
                         <div className="pagination">
-                            <p className='prev'>{`<`}</p>
+                            <p
+                                className={page <= 1 ? 'prev disabled' : 'prev'}
+                                onClick={page > 1 ? fetchPrevPage : undefined}
+                                style={{ cursor: page > 1 ? 'pointer' : 'not-allowed' }}
+                            >
+                                {page <= 1 ? 'X' : '<'}
+                            </p>
                             <p className='pagenum'>{page}/{totalPages}</p>
                             { !atLastPage ? (
                                 <p className='next' onClick={fetchNextPage}>{`>`}</p>
                             ) : (
                                 <p className='disabled'> X </p>
                             )}
-                            
                         </div>
                     </div>
                 )}

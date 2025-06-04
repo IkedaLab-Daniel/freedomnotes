@@ -12,11 +12,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  // console.log('Headers:', req.headers);
-  // if (Object.keys(req.body).length) {
-  //   console.log('Body:', req.body);
-  // }
+  const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+  console.log(`[${new Date().toISOString()}] ${req.method} ${fullUrl}`);
   next();
 });
 
