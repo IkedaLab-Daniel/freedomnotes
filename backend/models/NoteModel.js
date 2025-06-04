@@ -32,8 +32,8 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
 
 // ? static for getting *ALL notes
 // ! *No pagination yet: Limitted to 10 notes
-noteSchema.statics.getnotes = async function (){
-    const note = await this.find({}).limit(10);
+noteSchema.statics.getnotes = async function ( ){
+    const note = await this.find({}).limit(10).skip();
     if (!note){
         throw Error ('No notes found')
     }

@@ -1,0 +1,41 @@
+footer{
+    background-color: #393f46;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer .left{
+    width: 70%;
+}
+
+footer .left p{
+    color: #bcbcbc;
+    font-size: 1.2rem;
+}
+
+
+footer .right{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer .right a, p{
+    color: #bcbcbc;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+footer .right p:hover{
+    color: rgb(237, 237, 237);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+footer .right p.logout:hover{
+    color: rgb(231, 105, 105);
+}
