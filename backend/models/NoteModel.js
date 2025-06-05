@@ -119,7 +119,7 @@ noteSchema.statics.archiveNote = async function ( note_id ){
                 note.board_id,
                 { $pull: { notes: note._id.toString() } }
             );
-            console.log("Note",note.board_id, "has been removed to its board as well")
+            console.log("Note's board ID:", note.board_id);
         } catch (error){
             console.log( {delBoardErr : error.message});
         }
