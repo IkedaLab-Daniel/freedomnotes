@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
+import { useAuthContext } from '../hooks/useAuthContext';
 import ViewNote from './ViewNote';
 import '../css/notes.css'
 
@@ -18,6 +19,8 @@ const Notes = () => {
 
     const [selectedNote, setSelectedNote] = useState(null);
     const [showModal, setShowModal] = useState(false);
+
+    const { user } = useAuthContext();
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -118,6 +121,35 @@ const Notes = () => {
         }
     };
 
+    const unlistNote = async ( id ) => {
+        setIsLoading(true);
+
+        try{
+            const response = await fetch(`http://localhost:4000/api/note/${id}/archive`, {
+                method : "PATCH",
+                headers : {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
+
+            if (response.ok){
+                setIsLoading(false);
+                notifySuccess('Note Deleted')
+                setShowModal(false);
+                fetchNotes();  
+            }
+
+            if (!response.ok){
+                setIsLoading(false)
+                notifyError('Error')
+            }
+
+        } catch (error){
+            setIsLoading(false);
+            notifyError( error.message )
+        }
+    }
+
     useEffect( () => {
         fetchNotes();
     }, []);
@@ -128,6 +160,7 @@ const Notes = () => {
                 <ViewNote 
                     note = {selectedNote}
                     onClose = { () => setShowModal(false)}
+                    onUnlist = { () => unlistNote(selectedNote._id)}
                 />
             )}
             
