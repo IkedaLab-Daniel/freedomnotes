@@ -19,7 +19,6 @@ section .notes-container{
 }
 
 section .note{
-    background-color: #c1c781;
     min-height: 150px;
     max-width: 300px;
     padding: 10px 20px;
@@ -28,6 +27,18 @@ section .note{
     justify-content: space-between;
     border-radius: 4px;
     transition: .4s;
+}
+
+section .note.approved{
+    background-color: #c1c781;
+}
+
+section .note.pending{
+    background-color: #9dc781;
+}
+
+section .note.archived{
+    background-color: #c78181;
 }
 
 section .note:hover{

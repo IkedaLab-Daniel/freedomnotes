@@ -181,9 +181,13 @@ const Notes = () => {
         }
     }
 
-    // useEffect( () => {
-    //     fetchNotes();
-    // }, []);
+     useEffect( () => {
+        if (user && user.role == "admin"){
+            SUDOfetchNotes();
+        } else {
+            fetchNotes();
+        }
+    }, []);
 
     return (
         <>
@@ -207,7 +211,7 @@ const Notes = () => {
                 <div className="notes-container">
                     {notes && notes.map((note, index) => (
                         <div 
-                            className="note" 
+                            className={`note ${note.status}`}
                             key={note._id || index}
                             onClick = { () => {
                                 setSelectedNote(note)
