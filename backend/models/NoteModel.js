@@ -55,6 +55,30 @@ noteSchema.statics.getnotes = async function ( page = 1, limit = 10 ){
     }
 }
 
+// ? static for getting all APPROVED notes
+noteSchema.statics.getApproved = async function ( page = 1, limit = 10 ){
+    const skip = (page - 1) * limit;
+
+    const notes = await this.find({ status : "approved"})
+        .sort({ createdAt: -1})
+        .skip(skip)
+        .limit(limit)
+    
+    const total = await this.countDocuments({ status : "approved"});
+    const totalPages = Math.ceil( total / limit );
+
+    if (!notes){
+        throw Error ('No notes found')
+    }
+
+    return {
+        currentPage : page,
+        totalPages,
+        totalNotes: total,
+        notes
+    }
+}
+
 // ? static to update a note
 noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id ) {
     if (!title || !body || !tags || !user_id){

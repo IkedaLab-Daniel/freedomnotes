@@ -132,6 +132,8 @@ const Notes = () => {
                 }
             });
 
+            const json = await response.json()
+
             if (response.ok){
                 setIsLoading(false);
                 notifySuccess('Note Deleted')
@@ -141,12 +143,12 @@ const Notes = () => {
 
             if (!response.ok){
                 setIsLoading(false)
-                notifyError('Error')
+                notifyError( json.error )
             }
 
         } catch (error){
             setIsLoading(false);
-            notifyError( error.message )
+            notifyError( 'Server offline ZZZ' )
         }
     }
 
@@ -199,7 +201,7 @@ const Notes = () => {
                                 {page <= 1 ? 'X' : '<'}
                             </p>
                             <p className='pagenum'>{page}/{totalPages}</p>
-                            { !atLastPage ? (
+                            { (!atLastPage && !totalPages == 1) ? (
                                 <p className='next' onClick={fetchNextPage}>{`>`}</p>
                             ) : (
                                 <p className='disabled'> X </p>

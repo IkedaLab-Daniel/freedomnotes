@@ -22,6 +22,18 @@ const getnotes = async (req, res) => {
     }
 }
 
+const getApprovedNotes = async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    try {
+        const notes = await Note.getApproved( page, limit );
+        res.status(201).json( {notes} )
+    } catch (error){
+        res.status(400).json( { error: error.message })
+    }
+}
+
 const updatenote = async (req, res) => {
     const _id = req.params.id
     const { title, body, tags, user_id } = req.body
@@ -85,4 +97,5 @@ module.exports = {
     deleteNote,
     archiveNote,
     approveNote,
+    getApprovedNotes,
 }

@@ -9,13 +9,17 @@ const {
     deleteNote,
     archiveNote,
     approveNote,
+    getApprovedNotes,
 } = require('../controllers/noteController');
 
 // > middlewares
 const { requireAuth, requireAdmin } = require('../middlewares/requireAuth');
 
 // ? Get all notes
-router.get('/', getnotes);
+router.get('/all', requireAuth, requireAdmin, getnotes);
+
+// ? Get all approved notes
+router.get('/', getApprovedNotes);
 
 // ? Create new note
 router.post('/', requireAuth, createnote);
@@ -27,7 +31,7 @@ router.delete('/:id', requireAuth, requireAdmin, deleteNote);
 router.patch('/:id', requireAuth, updatenote);
 
 // ? Archive a  note
-router.patch('/:id/archive', requireAuth, archiveNote);
+router.patch('/:id/archive', requireAuth, requireAdmin, archiveNote);
 
 // ? approveNote
 router.patch('/:id/approve', requireAuth, requireAdmin, approveNote);
