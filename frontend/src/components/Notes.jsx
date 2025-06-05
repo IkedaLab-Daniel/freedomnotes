@@ -56,6 +56,35 @@ const Notes = () => {
         }
     }
 
+    const SUDOfetchNotes = async () => {
+        setIsLoading(true);
+
+        try{
+            const response = await fetch(`http://localhost:4000/api/note/all?page=${page}`, {
+                headers : {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json();
+
+            if (response.ok){
+                setIsLoading(false);
+                setNotes(json.notes.notes);
+                setTotalPages(json.notes.totalPages);
+                setNextPage(prev => (page + 1))
+                setAtFirstPage(true)
+            }
+
+            if (!response.ok){
+                setIsLoading(false);
+                notifyError( json.error );
+            }
+        } catch (error){
+            setIsLoading(false);
+            notifyError('Server is offline ZZZ')
+        }
+    }
+
     const fetchNextPage = async () => {
         setIsLoading(true);
         
@@ -152,9 +181,9 @@ const Notes = () => {
         }
     }
 
-    useEffect( () => {
-        fetchNotes();
-    }, []);
+    // useEffect( () => {
+    //     fetchNotes();
+    // }, []);
 
     return (
         <>
@@ -201,7 +230,7 @@ const Notes = () => {
                                 {page <= 1 ? 'X' : '<'}
                             </p>
                             <p className='pagenum'>{page}/{totalPages}</p>
-                            { (!atLastPage && !totalPages == 1) ? (
+                            { (!atLastPage && (totalPages != 1)) ? (
                                 <p className='next' onClick={fetchNextPage}>{`>`}</p>
                             ) : (
                                 <p className='disabled'> X </p>
@@ -209,6 +238,9 @@ const Notes = () => {
                         </div>
                     </div>
                 )}
+
+                <p onClick={SUDOfetchNotes}>SUDO GET ALL</p>
+                <p onClick={fetchNotes}>GET ALL</p>
 
                 { isLoading && (
                     <p className='loading'>Loading ...</p>

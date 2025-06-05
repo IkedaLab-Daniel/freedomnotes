@@ -14,7 +14,8 @@ const loginUser = async (req, res) => {
         const token = signToken({ _id: user._id, role: user.role });
         res.status(200).json( { 
             username: user.username,
-            token : token
+            token : token,
+            role : user.role
         } );
         console.log('A user successfully logged in:', user.username);
         console.log('Token:', token);
@@ -31,7 +32,8 @@ const signupUser = async (req, res) => {
         const token = signToken(user._id);
         res.status(200).json( { 
             username: user.username,
-            token : token
+            token : token,
+            role : user.role
         } );    } catch (error){
         res.status(400).json({ error: error.message})
     }
