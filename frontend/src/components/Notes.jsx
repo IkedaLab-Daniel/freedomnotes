@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
+import ViewNote from './ViewNote';
 import '../css/notes.css'
 
 const Notes = () => {
@@ -14,6 +15,9 @@ const Notes = () => {
     const [prevPage, setPrevPage] = useState(1);
     const [ atFirstPage, setAtFirstPage] = useState();
     const [ atLastPage, setAtLastPage] = useState();
+
+    const [selectedNote, setSelectedNote] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -120,6 +124,13 @@ const Notes = () => {
 
     return (
         <>
+            { selectedNote && showModal && (
+                <ViewNote 
+                    note = {selectedNote}
+                    onClose = { () => setShowModal(false)}
+                />
+            )}
+            
             <section id="notes">
                 <div className="heading">
                     <h1>Recent Notes</h1>
@@ -131,7 +142,13 @@ const Notes = () => {
                 )}
                 <div className="notes-container">
                     {notes && notes.map((note, index) => (
-                        <div className="note" key={note._id || index}>
+                        <div 
+                            className="note" 
+                            key={note._id || index}
+                            onClick = { () => {
+                                setSelectedNote(note)
+                                setShowModal(true)
+                            }}>
                             <p className='note-title'>{note.title}</p>
                             <p className='note-date'>{formatDate(note.createdAt)}</p>
                         </div>

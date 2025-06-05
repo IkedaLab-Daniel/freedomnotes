@@ -1,0 +1,57 @@
+.black-bg{
+    width: 120vw;
+    height: 120vh;
+    position: fixed;
+    top: 0;
+    background-color: rgb(0, 0, 0, .3);
+    z-index: 2;
+}
+
+#view-note-modal{
+    max-width: 380px;
+    min-width: 400px;
+    min-height: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+#view-note-modal .view-note{
+    background-color: #d3db85;
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    padding: 15px;
+    position: relative;
+}
+
+#view-note-modal .view-note .title{
+    text-align: center;
+    color: black;
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin-bottom: 10px;
+}
+
+#view-note-modal .view-note .content{
+    color: rgb(36, 36, 36);
+    margin-bottom: 25px;
+}
+
+#view-note-modal .close{
+    color: rgb(225, 17, 17);
+    transition: .2s;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+#view-note-modal .close:hover{
+    transform: translateY(-4px);
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
+}

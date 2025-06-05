@@ -31,7 +31,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
 }
 
 // ? static for getting *ALL notes
-// ! *No pagination yet: Limitted to 10 notes
+// * Pagination added !!!!!!!!!
 noteSchema.statics.getnotes = async function ( page = 1, limit = 10 ){
     const skip = (page - 1) * limit;
 
