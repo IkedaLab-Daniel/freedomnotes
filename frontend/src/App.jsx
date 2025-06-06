@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import NavBar from './components/NavBar'
+import BoardView from './pages/BoardView'
 import { useAuthContext } from './hooks/useAuthContext'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
 import './App.css'
@@ -30,6 +31,10 @@ function App() {
             <Route
               path='/signup'
               element = {!user ? <Signup/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/board/:id"
+              element = {<BoardView/>}
             />
           </Routes>
         </div>

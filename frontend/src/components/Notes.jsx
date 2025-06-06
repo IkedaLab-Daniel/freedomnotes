@@ -16,6 +16,7 @@ const Notes = () => {
     const [prevPage, setPrevPage] = useState(1);
     const [ atFirstPage, setAtFirstPage] = useState();
     const [ atLastPage, setAtLastPage] = useState();
+    const [ sudo, setSudo ] = useState(false) 
 
     const [selectedNote, setSelectedNote] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -58,6 +59,7 @@ const Notes = () => {
 
     const SUDOfetchNotes = async () => {
         setIsLoading(true);
+        setSudo(true)
 
         try{
             const response = await fetch(`http://localhost:4000/api/note/all?page=${page}`, {
@@ -191,7 +193,7 @@ const Notes = () => {
                     ))}
                 </div>
 
-                {(!isLoading && totalPages) && (
+                {(!isLoading && totalPages && !sudo) && (
                     <div className="pagination-container">
                         <div className="pagination">
                             <p

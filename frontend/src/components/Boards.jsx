@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
+import { Link } from "react-router-dom"
 import '../css/boards.css'
+
 const Boards = () => {
 
     const [ boards, setBoards ] = useState(null)
@@ -42,13 +44,15 @@ const Boards = () => {
                     { isLoading && (<p>Loading ...</p>)}
                     { !boards && (<p>No Boards</p>)}
                     {boards && boards.map((board, index) => (
-                        <div className="board" key={board._id || index}>
-                            <p className="board-title">{board.board_name}</p>
-                            <div className="board-bg">
-                                <p className={`board-status ${board.status}`}>{(board.status).toUpperCase()}</p>
-                                <p className="board-notes-total">{board.totalNotes}/20</p>
+                        <Link to={`/board/${board._id}`}>
+                            <div className="board" key={board._id || index}>
+                                <p className="board-title">{board.board_name}</p>
+                                <div className="board-bg">
+                                    <p className={`board-status ${board.status}`}>{(board.status).toUpperCase()}</p>
+                                    <p className="board-notes-total">{board.totalNotes}/20</p>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
                 
