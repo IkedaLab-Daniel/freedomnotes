@@ -194,6 +194,7 @@ useEffect( () => {
                     note = {selectedNote}
                     onClose = { () => setShowModal(false)}
                     onUnlist = { () => unlistNote(selectedNote._id)}
+                    onSUDO = { () => SUDOfetchNotes()}
                 />
             )}
             

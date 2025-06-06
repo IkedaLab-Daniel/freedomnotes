@@ -71,3 +71,18 @@
     cursor: pointer;
 }
 
+#view-note-modal .approve{
+    color: rgb(15, 183, 35);
+    transition: .2s;
+    position: absolute;
+    bottom: 15px;
+    right: 230px;
+}
+
+#view-note-modal .approve:hover{
+    transform: translateY(-4px);
+    color: rgb(12, 196, 24);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
