@@ -34,6 +34,17 @@ const getApprovedNotes = async (req, res) => {
     }
 }
 
+const getNotesByBoard = async (req, res) => {
+    const _id = req.params.id;
+
+    try{
+        const notes = await Note.notesbyboard( _id )
+        res.status(200).json( { notes })
+    } catch (error){
+        res.status(400).json( {error: error.message} )
+    }
+}
+
 const updatenote = async (req, res) => {
     const _id = req.params.id
     const { title, body, tags, user_id } = req.body
@@ -98,4 +109,5 @@ module.exports = {
     archiveNote,
     approveNote,
     getApprovedNotes,
+    getNotesByBoard,
 }

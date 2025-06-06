@@ -189,4 +189,27 @@ noteSchema.statics.approveNote = async function (_id) {
     return note;
 }
 
+// ? Static to get all notes of the specific board
+noteSchema.statics.notesbyboard = async function ( board_id ){
+    if (!board_id){
+        throw Error("Board ID Missing")
+    }
+
+    // ? Check if the board_id actully exist or nah
+    const board = await Board.findOne( { _id : board_id })
+
+    if (!board){
+        throw Error("Board not found!")
+    }
+
+    // ? Get all notes with the board_id
+    const notes = await this.find({ board_id : board_id}) 
+
+    if (!notes){
+        throw Error("No Notes on this board yet")
+    }
+
+    return notes
+}
+
 module.exports = mongoose.model('Note', noteSchema)
