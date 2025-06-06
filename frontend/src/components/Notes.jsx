@@ -150,37 +150,6 @@ const Notes = () => {
         }
     };
 
-    const unlistNote = async ( id ) => {
-        setIsLoading(true);
-
-        try{
-            const response = await fetch(`http://localhost:4000/api/note/${id}/archive`, {
-                method : "PATCH",
-                headers : {
-                    Authorization: `Bearer ${user.token}`
-                }
-            });
-
-            const json = await response.json()
-
-            if (response.ok){
-                setIsLoading(false);
-                notifySuccess('Note Deleted')
-                setShowModal(false);
-                fetchNotes();  
-            }
-
-            if (!response.ok){
-                setIsLoading(false)
-                notifyError( json.error )
-            }
-
-        } catch (error){
-            setIsLoading(false);
-            notifyError( 'Server offline ZZZ' )
-        }
-    }
-
     // TODO Implement conditional implementing
     // ! user state updates twice per refresh. First has null, second is OK
     useEffect( () => {

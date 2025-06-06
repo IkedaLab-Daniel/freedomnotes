@@ -4,7 +4,7 @@ import { notifySuccess, notifyError } from '../hooks/useToaster';
 import '../css/viewNote.css';
 
 
-const ViewNote = ({note, onClose, onUnlist, onSUDO} ) => {
+const ViewNote = ({note, onClose, onSUDO } ) => {
     if (!note) return null;
 
     const [ isLoading, setIsLoading ] = useState(false);
