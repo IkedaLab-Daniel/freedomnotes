@@ -155,12 +155,36 @@ noteSchema.statics.archiveNote = async function ( note_id ){
 }
 
 // ? static for approving a note
-noteSchema.statics.approveNote = async function ( _id ){
-    if (!_id){
-        throw Error("No Note's ID on payload")
+noteSchema.statics.approveNote = async function (_id) {
+    if (!_id) {
+        throw Error("No Note's ID on payload");
     }
-    
-    note = await this.findOneAndUpdate( { _id : _id }, { status: "approved"} )
+
+    // Update the note's status to approved and get the note document
+    const note = await this.findOneAndUpdate(
+        { _id: _id },
+        { status: "approved" },
+        { new: true } // Return the updated document
+    );
+
+    if (!note) {
+        throw Error("Note does not exist");
+    }
+
+    // ? Add the note's ID back to the Board's notes array if not already present
+    if (note.board_id) {
+        try {
+            await Board.findByIdAndUpdate(
+                note.board_id,
+                { $addToSet: { notes: note._id.toString() } } // $addToSet prevents duplicates
+            );
+            console.log("Note's board ID:", note.board_id, "added back to board notes");
+        } catch (error) {
+            console.log({ addBoardErr: error.message });
+        }
+    } else {
+        console.log('note.board_id is empty');
+    }
 
     return note;
 }

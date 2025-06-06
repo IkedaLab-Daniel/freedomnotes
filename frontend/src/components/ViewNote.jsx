@@ -80,7 +80,7 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
                     <h2 className='title'>{note.title}</h2>
                     <p className='content'>{note.body}</p>
                     <p className='close' onClick={onClose}>X Close</p>
-                    { (note.status !== "archived" || note.status === "pending") && (
+                    { ((note.status !== "archived" || note.status === "pending") && user.role === "admin") && (
                         <p className='delete' onClick={unlistNote}>❌ Delete</p>
                     )}
                     
