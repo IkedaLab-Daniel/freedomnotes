@@ -101,8 +101,23 @@ section .pagination-container .pagination .disabled:hover{
     color: rgb(212, 129, 129);
 }
 
-section .loading{
+.loading{
     text-align: center;
     font-size: 1.2rem;
 }
+
+.sudogetall{
+    color: #b9dfee;
+    text-align: center;
+    margin-top: 30px;
+    transition: .4s;
+}
+
+.sudogetall:hover{
+    text-decoration: underline;
+    font-weight: 600;
+    transform: translateY(-4px);
+    cursor: pointer;
+}
+
 

@@ -32,7 +32,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
 
 // ? static for getting *ALL notes
 // * Pagination added !!!!!!!!!
-noteSchema.statics.getnotes = async function ( page = 1, limit = 10 ){
+noteSchema.statics.getnotes = async function ( page = 1, limit = 1000 ){
     const skip = (page - 1) * limit;
 
     const notes = await this.find({})

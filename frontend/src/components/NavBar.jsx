@@ -56,6 +56,7 @@ const NavBar = () => {
                 <div className="user-buttons-container">
                     { user &&
                     <>
+                        <span>{user.role}</span>
                         <button onClick={handleLogout} className='logout'>Log Out</button>
                     </>}
 

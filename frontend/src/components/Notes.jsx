@@ -35,7 +35,7 @@ const Notes = () => {
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note?page=${page}`)
+            const response = await fetch(`http://localhost:4000/api/note?page=${page}&limit=10`)
             const json = await response.json();
 
             if (response.ok){
@@ -89,7 +89,7 @@ const Notes = () => {
         setIsLoading(true);
         
         try{
-            const response = await fetch(`http://localhost:4000/api/note?page=${nextPage}`)
+            const response = await fetch(`http://localhost:4000/api/note?page=${nextPage}&limit=10`)
             const json = await response.json();
 
             if (response.ok){
@@ -129,7 +129,7 @@ const Notes = () => {
 
         try {
             const prev = page - 1;
-            const response = await fetch(`http://localhost:4000/api/note?page=${prev}`);
+            const response = await fetch(`http://localhost:4000/api/note?page=${prev}&limit=10`);
             const json = await response.json();
 
             if (response.ok) {
@@ -181,13 +181,11 @@ const Notes = () => {
         }
     }
 
-     useEffect( () => {
-        if (user && user.role == "admin"){
-            SUDOfetchNotes();
-        } else {
-            fetchNotes();
-        }
-    }, []);
+// TODO Implement conditional implementing
+// ! user state updates twice per refresh. First has null, second is OK
+useEffect( () => {
+    fetchNotes();
+}, [])
 
     return (
         <>
@@ -203,7 +201,7 @@ const Notes = () => {
                 <div className="heading">
                     <h1>Recent Notes</h1>
                 </div>
-                { !notes && (
+                { (!notes && !isLoading) && (
                     <>
                         <p>No Notes</p>
                     </>
@@ -243,11 +241,12 @@ const Notes = () => {
                     </div>
                 )}
 
-                <p onClick={SUDOfetchNotes}>SUDO GET ALL</p>
-                <p onClick={fetchNotes}>GET ALL</p>
-
                 { isLoading && (
                     <p className='loading'>Loading ...</p>
+                )}
+
+                { (user && user.role === "admin") && (
+                    <p className='sudogetall' onClick={SUDOfetchNotes}>❄️ SUDO GET ALL ❄️</p>
                 )}
             </section>
         </>
