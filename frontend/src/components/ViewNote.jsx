@@ -40,6 +40,37 @@ const ViewNote = ({note, onClose, onUnlist, onSUDO} ) => {
         }
     }
 
+    const unlistNote = async () => {
+        console.log("New unlist method called")
+        setIsLoading(true);
+
+        try{
+            const response = await fetch(`http://localhost:4000/api/note/${note._id}/archive`, {
+                method : "PATCH",
+                headers : {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
+
+            const json = await response.json()
+
+            if (response.ok){
+                setIsLoading(false);
+                notifySuccess('Note Deleted')
+                onClose()
+                onSUDO();  
+            }
+
+            if (!response.ok){
+                setIsLoading(false)
+                notifyError( json.error )
+            }
+
+        } catch (error){
+            setIsLoading(false);
+            notifyError( 'Server offline ZZZ' )
+        }
+    }
     return(
 
         <>
@@ -49,7 +80,10 @@ const ViewNote = ({note, onClose, onUnlist, onSUDO} ) => {
                     <h2 className='title'>{note.title}</h2>
                     <p className='content'>{note.body}</p>
                     <p className='close' onClick={onClose}>X Close</p>
-                    <p className='delete' onClick={onUnlist}>❌ Delete</p>
+                    { (note.status !== "archived" || note.status === "pending") && (
+                        <p className='delete' onClick={unlistNote}>❌ Delete</p>
+                    )}
+                    
                     {( note.status === "pending" || note.status === "archived") && (
                         <p className='approve' onClick={approveNote}>✅ Approve</p>
                     )}

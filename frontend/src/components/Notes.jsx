@@ -181,11 +181,11 @@ const Notes = () => {
         }
     }
 
-// TODO Implement conditional implementing
-// ! user state updates twice per refresh. First has null, second is OK
-useEffect( () => {
-    fetchNotes();
-}, [])
+    // TODO Implement conditional implementing
+    // ! user state updates twice per refresh. First has null, second is OK
+    useEffect( () => {
+        fetchNotes();
+    }, [])
 
     return (
         <>
