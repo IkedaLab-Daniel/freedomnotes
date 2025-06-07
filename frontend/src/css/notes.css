@@ -120,4 +120,24 @@ section .pagination-container .pagination .disabled:hover{
     cursor: pointer;
 }
 
+.btn-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-container p{
+    font-size: 1.7rem;
+    transition: .4s;
+    color: #dfdfdf;
+}
+
+.btn-container p:hover{
+    transform: translateY(-4px);
+    text-decoration: underline;
+    cursor: pointer;
+    color: #ffffff;
+
+}
+
 

@@ -1,0 +1,86 @@
+.add-note-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.add-note-modal form{
+    background-color: #d3db85;
+    padding: 20px;
+    min-width: 400px;
+    min-height: 300px;
+    border: 2px solid black;
+}
+
+.add-note-modal form .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.add-note-modal form textarea{
+    width: 100%;
+    height: 200px;
+    padding: 6px 10px;
+    border: 2px solid #5b5b5b;
+    border-radius: 4px;
+    background-color: #fdfef1;
+    color: black;
+}
+
+.add-note-modal form label{
+    display: block;
+    color: black;
+}
+
+
+.add-note-modal form .input-group label {
+    min-width: 70px;
+    margin-right: 8px;
+    color: black;
+}
+
+.add-note-modal form .input-group input[type="text"] {
+    flex: 1;
+    padding: 6px 10px;
+    border: 2px solid #5b5b5b;
+    border-radius: 4px;
+    background-color: #fdfef1;
+    color: black;
+}
+
+.add-note-modal form .btn-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-note-modal form .btn-container p.add-btn{
+    width: 100%;
+    border: 2px solid black;
+    padding: 6px;
+    background-color: rgb(227, 227, 227);
+    color: black;
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius: 4px;
+}
+
+.add-note-modal form .btn-container p.cancel-btn{
+    width: 100%;
+    border: 2px solid black;
+    padding: 6px;
+    background-color: rgb(227, 227, 227, 0);
+    color: black;
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius: 4px;
+}
+
+.add-note-modal form .btn-container p:hover{
+    text-decoration: none;
+}

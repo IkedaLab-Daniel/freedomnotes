@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams , Link } from "react-router-dom"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
 import Notes from "../components/Notes"
 import Footer from "../components/Footer"
 import ViewNote from "../components/ViewNote"
+import AddNoteModal from "../components/AddNoteModal"
 import '../css/notes.css'
 const BoardView = () => {
 
@@ -80,9 +81,18 @@ const BoardView = () => {
                         </div>
                     ))}
                 </div>
+
+                <div className="btn-container">
+                    <Link to="/">
+                        <p className="back">{`< Back`}</p>
+                    </Link>
+                    <p className="addNote">+ Add Note</p>
+                </div>
+
             </section>
             <Notes />
             <Footer />
+            <AddNoteModal />
         </>
     )
 }
