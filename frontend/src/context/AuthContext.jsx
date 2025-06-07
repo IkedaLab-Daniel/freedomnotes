@@ -7,14 +7,14 @@ export const authReducer = (state, action) => {
         case 'LOGIN':
             return { user : action.payload }
         case 'LOGOUT':
-            return { user : null}
+            return { user : { role : "guest"}}
         default:
             return state
     }
 }
 
 export const AuthContextProvider = ({children}) => {
-    const [state, dispatch] = useReducer(authReducer, { user : null})
+    const [state, dispatch] = useReducer(authReducer, { user : { role : "guest"}})
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'))
