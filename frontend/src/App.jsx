@@ -33,7 +33,7 @@ function App() {
               element = {!user.username ? <Signup/> : <Navigate to="/" />}
             />
             <Route 
-              path="/board/:id"
+              path="/board/:board_id"
               element = {<BoardView/>}
             />
           </Routes>
