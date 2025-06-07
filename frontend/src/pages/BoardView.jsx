@@ -1,13 +1,19 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
 import Notes from "../components/Notes"
 import Footer from "../components/Footer"
+import ViewNote from "../components/ViewNote"
 import '../css/notes.css'
 const BoardView = () => {
 
     const [ boardNotes, setBoardNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
+    const [ boardName, setBoardName ] = useState();
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedNote, setSelectedNote] = useState(null);
+
     const  { board_id } = useParams()
 
     function formatDate(dateString) {
@@ -28,7 +34,8 @@ const BoardView = () => {
 
             if (response.ok){
                 setIsLoading(false);
-                setBoardNotes(json.notes)
+                setBoardNotes(json.notes.notes)
+                setBoardName(json.notes.boardName)
             }
 
             if (!response.ok){
@@ -41,12 +48,26 @@ const BoardView = () => {
         }
     }
 
+    useEffect( () => {
+        fetchBoardData()
+    }, [])
+
     return(
         <>
-            <h1 onClick={fetchBoardData}>Hello</h1>
+            { selectedNote && showModal && (
+                <ViewNote 
+                    note = {selectedNote}
+                    onClose = { () => setShowModal(false)}
+                    onSUDO = { () => fetchBoardData()}
+                />
+            )}
             <section id="notes">
+                <div className="heading">
+                    <h1>{boardName ? (boardName) : "..."}</h1>
+                </div>
                 <div className="notes-container">
-                    {boardNotes && boardNotes.map((note, index) => (
+                    { isLoading && (<p className="loading">Loading...</p>)}
+                    { boardNotes && boardNotes.map((note, index) => (
                         <div 
                             className={`note ${note.status}`}
                             key={note._id || index}
