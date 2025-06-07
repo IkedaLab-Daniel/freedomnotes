@@ -54,13 +54,13 @@ const NavBar = () => {
                 </div>
 
                 <div className="user-buttons-container">
-                    { user &&
+                    { user.username &&
                     <>
                         <span>{user.role}</span>
                         <button onClick={handleLogout} className='logout'>Log Out</button>
                     </>}
 
-                    { !user &&
+                    { !user.username &&
                     <>
                         <Link to="login">
                             <button className='login'>Log In</button>
