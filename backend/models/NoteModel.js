@@ -196,14 +196,14 @@ noteSchema.statics.notesbyboard = async function ( board_id ){
     }
 
     // ? Check if the board_id actully exist or nah
-    const board = await Board.findOne( { _id : board_id })
+    const board = await Board.findOne( { _id : board_id})
 
     if (!board){
         throw Error("Board not found!")
     }
 
-    // ? Get all notes with the board_id
-    const notes = await this.find({ board_id : board_id}) 
+    // ? Get all notes with the board_id (must be approved)
+    const notes = await this.find({ board_id : board_id, status : "approved"}) 
 
     if (!notes){
         throw Error("No Notes on this board yet")
