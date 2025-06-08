@@ -16,15 +16,28 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
     if (!title || !body || !user_id){
         throw Error("Required field/s not empty")
     }
-    exist = await this.findOne( {title: title } )
-    if (exist){
-        throw Error('This title already exist:', title)
+
+    // ? Check if the board already has 20 notes
+    const board = await Board.findById(board_id);
+    if (!board) {
+        throw Error("Board not found");
     }
-    const note = await this.create( {title: title, body : body, tags : tags, board_id, user_id, status : "pending"} )
+    if (board.notes.length >= 20) {
+        throw Error("Max note limit (20) reached for this board");
+    }
+
+    const exist = await this.findOne({ title: title });
+
+    if (exist){
+        throw Error('This title already exist: ' + title)
+    }
+    
+    const note = await this.create({ title, body, tags, board_id, user_id, status: "pending" });
+    
     // ? Add the note's ID to its Board
     await Board.findByIdAndUpdate(
         board_id,
-        { $push: { notes: note._id.toString()}},
+        { $push: { notes: note._id.toString() }},
         { new: true }
     )
     return note
@@ -197,14 +210,12 @@ noteSchema.statics.notesbyboard = async function (board_id) {
 
     // ? Check if the board_id actually exists
     const board = await Board.findOne({ _id: board_id });
-
     if (!board) {
         throw Error("Board not found!");
     }
 
     // ? Get number of pending notes on that board (status: "pending")
-    const pendingCount = await this.countDocuments({ board_id: board_id, status: "pending" });
-
+    const pendingCount = await this.countDocuments({ board_id: board_id, status: "pending" })
     // ? Get all notes with the board_id (must be approved)
     const notes = await this.find({ board_id: board_id, status: "approved" });
 
