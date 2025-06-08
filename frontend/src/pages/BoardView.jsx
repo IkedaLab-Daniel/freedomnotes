@@ -13,6 +13,7 @@ const BoardView = () => {
     const [ boardName, setBoardName ] = useState();
 
     const [showModal, setShowModal] = useState(false);
+    const [ showAddModal, setShowAddModal] = useState(false);
     const [selectedNote, setSelectedNote] = useState(null);
 
     const  { board_id } = useParams()
@@ -55,10 +56,10 @@ const BoardView = () => {
 
     return(
         <>
-            { selectedNote && showModal && (
+            { (selectedNote && showModal ) && (
                 <ViewNote 
                     note = {selectedNote}
-                    onClose = { () => setShowModal(false)}
+                    onClose = { () => {setShowModal(false)}}
                     onSUDO = { () => fetchBoardData()}
                 />
             )}
@@ -86,13 +87,23 @@ const BoardView = () => {
                     <Link to="/">
                         <p className="back">{`< Back`}</p>
                     </Link>
-                    <p className="addNote">+ Add Note</p>
+                    <p 
+                        className="addNote"
+                        onClick={() => setShowAddModal(true)}
+                    >+ Add Note</p>
                 </div>
 
             </section>
             <Notes />
             <Footer />
-            <AddNoteModal />
+            { showAddModal && (
+                <AddNoteModal 
+                    onClose = { () => {setShowAddModal(false)}}
+                    onSUDO = { () => fetchBoardData()}
+                    board = {board_id}
+                />
+            )}
+            
         </>
     )
 }
