@@ -3,7 +3,7 @@ import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
 import '../css/addnotemodal.css'
 
-const AddNoteModal = ( { onSUDO, onClose, board } ) => {
+const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
 
     const { user } = useAuthContext()
 
@@ -15,7 +15,6 @@ const AddNoteModal = ( { onSUDO, onClose, board } ) => {
     const addNote = async (e) => {
         e.preventDefault()
         setIsLoading(true);
-        
 
         try{
             const response = await fetch('http://localhost:4000/api/note', {
@@ -90,7 +89,7 @@ const AddNoteModal = ( { onSUDO, onClose, board } ) => {
                         <p className='error'>{error}</p>
                     )} 
                 </form>
-
+                
             </div>
         </>
     )

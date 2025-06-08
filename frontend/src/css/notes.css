@@ -139,6 +139,11 @@ section .pagination-container .pagination .disabled:hover{
     color: #dfdfdf;
 }
 
+.btn-container span.full{
+    color: rgb(255, 70, 70);
+    font-size: 1.2rem;
+}
+
 .btn-container p:hover{
     transform: translateY(-4px);
     text-decoration: underline;

@@ -12,10 +12,11 @@ const BoardView = () => {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ boardName, setBoardName ] = useState();
     const [ pendingNotes, setPendingNotes ] = useState();
-
+    const [ totalNotes, setTotalNotes ]= useState();
     const [showModal, setShowModal] = useState(false);
     const [ showAddModal, setShowAddModal] = useState(false);
     const [selectedNote, setSelectedNote] = useState(null);
+
 
     const  { board_id } = useParams()
 
@@ -40,6 +41,8 @@ const BoardView = () => {
                 setBoardNotes(json.notes.notes)
                 setBoardName(json.notes.boardName)
                 setPendingNotes(json.notes.pendingNotes)
+                console.log(json)
+                setTotalNotes(parseInt(json.notes.notes.length) + json.notes.pendingNotes)
             }
 
             if (!response.ok){
@@ -95,10 +98,15 @@ const BoardView = () => {
                     <Link to="/">
                         <p className="back">{`< Back`}</p>
                     </Link>
-                    <p 
+                    { (totalNotes >= 20) ? (
+                        <span className="full">Board is full!</span>
+                    ) : (
+                        <p 
                         className="addNote"
-                        onClick={() => setShowAddModal(true)}
-                    >+ Add Note</p>
+                            onClick={() => setShowAddModal(true)}
+                        >+ Add Note</p>
+                    )}
+                    
                 </div>
 
             </section>
@@ -109,9 +117,9 @@ const BoardView = () => {
                     onClose = { () => {setShowAddModal(false)}}
                     onSUDO = { () => fetchBoardData()}
                     board = {board_id}
+                    totalNotes = {totalNotes}
                 />
             )}
-            
         </>
     )
 }

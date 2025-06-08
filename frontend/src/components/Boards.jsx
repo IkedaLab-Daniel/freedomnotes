@@ -48,8 +48,19 @@ const Boards = () => {
                             <div className="board" key={board._id || index}>
                                 <p className="board-title">{board.board_name}</p>
                                 <div className="board-bg">
-                                    <p className={`board-status ${board.status}`}>{(board.status).toUpperCase()}</p>
-                                    <p className="board-notes-total">{board.totalNotes}/20</p>
+                                    { (board.totalNotes >= 20) ? (
+                                        <>
+                                            <p className={`board-status closed`}>FULL</p>
+                                            <p className="board-notes-total">{board.totalNotes}/20</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className={`board-status ${board.status}`}>{(board.status).toUpperCase()}</p>
+                                            <p className="board-notes-total">{board.totalNotes}/20</p>
+                                        </>
+                                       
+                                    )}
+
                                 </div>
                             </div>
                         </Link>
