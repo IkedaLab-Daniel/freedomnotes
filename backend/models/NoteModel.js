@@ -202,12 +202,16 @@ noteSchema.statics.notesbyboard = async function (board_id) {
         throw Error("Board not found!");
     }
 
+    // ? Get number of pending notes on that board (status: "pending")
+    const pendingCount = await this.countDocuments({ board_id: board_id, status: "pending" });
+
     // ? Get all notes with the board_id (must be approved)
     const notes = await this.find({ board_id: board_id, status: "approved" });
 
     return {
         boardName: board.board_name,
-        notes
+        pendingNotes: pendingCount,
+        notes,
     };
 }
 

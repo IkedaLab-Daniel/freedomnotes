@@ -41,6 +41,13 @@ section .note.archived{
     background-color: #c78181;
 }
 
+section .note.pending-notes{
+    background-color: #9dc781;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 section .note:hover{
     cursor: pointer;
     transform: translateY(-4px);

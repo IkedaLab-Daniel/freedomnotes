@@ -11,6 +11,7 @@ const BoardView = () => {
     const [ boardNotes, setBoardNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
     const [ boardName, setBoardName ] = useState();
+    const [ pendingNotes, setPendingNotes ] = useState();
 
     const [showModal, setShowModal] = useState(false);
     const [ showAddModal, setShowAddModal] = useState(false);
@@ -38,6 +39,7 @@ const BoardView = () => {
                 setIsLoading(false);
                 setBoardNotes(json.notes.notes)
                 setBoardName(json.notes.boardName)
+                setPendingNotes(json.notes.pendingNotes)
             }
 
             if (!response.ok){
@@ -81,6 +83,12 @@ const BoardView = () => {
                             <p className='note-date'>{formatDate(note.createdAt)}</p>
                         </div>
                     ))}
+                    { (pendingNotes > 0) && (
+                        <div className="note pending-notes">
+                            <p className="note-title">{pendingNotes} notes pending</p>
+                        </div>
+                    )}
+                    
                 </div>
 
                 <div className="btn-container">

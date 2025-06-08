@@ -3,7 +3,7 @@ import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
 import '../css/addnotemodal.css'
 
-const AddNoteModal = ( { onClose, board } ) => {
+const AddNoteModal = ( { onSUDO, onClose, board } ) => {
 
     const { user } = useAuthContext()
 
@@ -40,6 +40,7 @@ const AddNoteModal = ( { onClose, board } ) => {
                 notifySuccess('Note Added! Wait for admin approval...');
                 setError();
                 onClose();
+                onSUDO();
             }
 
             if (!response.ok){
