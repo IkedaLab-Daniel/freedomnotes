@@ -9,6 +9,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
 
     const [ title, setTitle ] = useState('');
     const [ message, setMessage ] = useState('')
+    const [ anon, setAnon ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
     const [ error, setError ] = useState('')
 
@@ -28,6 +29,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                     body: message,
                     board_id: board,
                     user_username: user.username,
+                    anon: anon,
                     tags: ["test"]
                 })
             })
@@ -78,6 +80,15 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                         id="message"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}></textarea>
+                    <div className="checkbox-container">
+                        <input 
+                            type='checkbox' 
+                            checked={anon}
+                            onChange={e => setAnon(e.target.checked)}
+                        />
+                        <span>Anonymous</span>
+                    </div>
+                     
                     <div className="btn-container">
                         <button className='add-btn'>+ Add Note</button>
                         <button className='cancel-btn' onClick={onClose}>X Cancel</button>

@@ -62,6 +62,30 @@
     background-color: #eff0e4;
 }
 
+.add-note-modal form .checkbox-container{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 5px;
+}
+
+.add-note-modal form input[type="checkbox"] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    transition: .4s;
+}
+
+.add-note-modal form input[type="checkbox"]:hover{
+    transform: scale(110%);
+    cursor: pointer;
+}
+
+.add-note-modal form span {
+    color: black;
+}
+
+
 .add-note-modal form .btn-container{
     display: flex;
     flex-direction: column;
