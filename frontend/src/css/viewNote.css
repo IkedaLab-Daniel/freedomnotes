@@ -38,6 +38,10 @@
 
 #view-note-modal .view-note .content{
     color: rgb(36, 36, 36);
+}
+
+#view-note-modal .view-note .username{
+    color: rgb(36, 36, 36);
     margin-bottom: 25px;
 }
 
