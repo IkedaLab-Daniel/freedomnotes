@@ -1,9 +1,9 @@
 const Note = require('../models/NoteModel');
 
 const createnote = async (req,res) => {
-    const { title, body, tags, board_id, user_id } = req.body
+    const { title, body, tags, board_id, user_username } = req.body
     try {
-        const note = await Note.createnote( title, body, tags, board_id, user_id);
+        const note = await Note.createnote( title, body, tags, board_id, user_username);
         res.status(201).json( { message: "Note added", note : note._id})
     } catch (error){
         res.status(400).json( { error : error.message } )
@@ -47,10 +47,10 @@ const getNotesByBoard = async (req, res) => {
 
 const updatenote = async (req, res) => {
     const _id = req.params.id
-    const { title, body, tags, user_id } = req.body
+    const { title, body, tags, user_username } = req.body
 
     try{
-        const note = await Note.updatenote(_id, title, body, tags, user_id);
+        const note = await Note.updatenote(_id, title, body, tags, user_username);
         res.status(200).json({message : "note updated", note: note})
     } catch (error){
         res.status(400).json({ error : error.message })
@@ -72,7 +72,7 @@ const deleteNote = async (req, res) => {
     }
 }
 
-// TODO : If user's ID does not match with the note's user_id, throw error
+// TODO : If user's ID does not match with the note's user_username, throw error
 const archiveNote = async (req, res) => {
     const _id = req.params.id;
 

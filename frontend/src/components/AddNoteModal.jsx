@@ -27,7 +27,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                     title: title,
                     body: message,
                     board_id: board,
-                    user_id: user.username,
+                    user_username: user.username,
                     tags: ["test"]
                 })
             })

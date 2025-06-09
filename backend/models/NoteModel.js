@@ -6,14 +6,14 @@ const noteSchema = new Schema({
     title: String,
     body: String,
     tags: [String],
-    user_id: String,
+    user_username: String,
     board_id: String,
     status: String
 }, { timestamps: true })
 
 // ? Static for creating note
-noteSchema.statics.createnote = async function ( title, body, tags, board_id, user_id ) {
-    if (!title || !body || !user_id){
+noteSchema.statics.createnote = async function ( title, body, tags, board_id, user_username ) {
+    if (!title || !body || !user_username){
         throw Error("Required field/s not empty")
     }
 
@@ -32,7 +32,7 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
         throw Error('This title already exist: ' + title)
     }
     
-    const note = await this.create({ title, body, tags, board_id, user_id, status: "pending" });
+    const note = await this.create({ title, body, tags, board_id, user_username, status: "pending" });
     
     // ? Add the note's ID to its Board
     await Board.findByIdAndUpdate(
@@ -93,8 +93,8 @@ noteSchema.statics.getApproved = async function ( page = 1, limit = 10 ){
 }
 
 // ? static to update a note
-noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id ) {
-    if (!title || !body || !tags || !user_id){
+noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_username ) {
+    if (!title || !body || !tags || !user_username){
         throw Error ('Title field empty');
     }
 
@@ -102,7 +102,7 @@ noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_id
 
     const note = this.findOneAndUpdate(
         { _id : _id,},
-        { title: title, body : body, tags : tags, user_id : user_id }
+        { title: title, body : body, tags : tags, user_username : user_username }
     )
     return note
 }
