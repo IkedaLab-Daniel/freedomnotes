@@ -96,6 +96,17 @@ noteSchema.statics.getApproved = async function ( page = 1, limit = 10 ){
     }
 }
 
+// ? Static to get note of specified user:
+noteSchema.statics.getUserNote = async function ( username ){
+    if (!username){
+        throw Error("Detail needed not provided.")
+    }
+
+    const notes = await this.find({ user_username : username})
+
+    return notes;
+}
+
 // ? static to update a note
 noteSchema.statics.updatenote = async function ( _id, title, body, tags, user_username ) {
     if (!title || !body || !tags || !user_username){

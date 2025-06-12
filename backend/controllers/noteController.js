@@ -34,6 +34,21 @@ const getApprovedNotes = async (req, res) => {
     }
 }
 
+const getUserNote = async (req, res) => {
+    const username = req.params.username
+    try{
+        const notes = await Note.getUserNote( username );
+        
+        if (!notes || notes.length == 0){
+            res.status(200).json({message: "No note yet"});
+        }
+
+        res.status(200).json({notes});
+    } catch ( error ){
+        res.status(400).json( {error : error.message});
+    }
+}
+
 const getNotesByBoard = async (req, res) => {
     const _id = req.params.id;
 
@@ -110,4 +125,5 @@ module.exports = {
     approveNote,
     getApprovedNotes,
     getNotesByBoard,
+    getUserNote
 }

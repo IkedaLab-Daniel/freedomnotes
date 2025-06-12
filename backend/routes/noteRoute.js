@@ -11,6 +11,7 @@ const {
     approveNote,
     getApprovedNotes,
     getNotesByBoard,
+    getUserNote
 } = require('../controllers/noteController');
 
 // > middlewares
@@ -21,6 +22,9 @@ router.get('/all', requireAuth, requireAdmin, getnotes);
 
 // ? Get all approved notes
 router.get('/', getApprovedNotes);
+
+// ? Get notes of specific user
+router.get('/user/:username', requireAuth, getUserNote);
 
 // ? Get all notes by specific board
 router.get('/board/:id', getNotesByBoard);
