@@ -1,0 +1,21 @@
+#profile-info{
+    position: relative;
+}
+
+#profile-info .username{
+    font-size: 2rem;
+}
+
+#profile-info .back{
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    font-size: 1.4rem;
+    transition: .4s;
+}
+
+#profile-info .back:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    transform: translateY(-5px);
+}

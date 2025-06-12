@@ -1,0 +1,53 @@
+#notloggedin{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+
+#notloggedin .modal{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #393f46;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+#notloggedin .modal h1{
+    text-align: center;
+}
+
+#notloggedin .modal .btn-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#notloggedin .modal .btn-container button{
+    width: 100%;
+    padding: 10px;
+    color: black;
+    transition: .4s;
+}
+
+#notloggedin .modal .btn-container button.login{
+    background-color: rgba(255, 0, 0, 0);
+    color: white;
+    border: 2px solid white;
+}
+
+#notloggedin .modal .btn-container button.home{
+    background-color: rgba(255, 252, 252, 0);
+    color: white;
+    border: 2px solid rgba(0, 0, 0, 0);
+}
+
+
+#notloggedin .modal .btn-container button:hover{
+    cursor: pointer;
+    transform: translateY(-4px);
+}
+

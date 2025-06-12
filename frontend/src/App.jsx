@@ -6,6 +6,8 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import NavBar from './components/NavBar'
 import BoardView from './pages/BoardView'
+import Profile from './pages/Profile'
+
 import { useAuthContext } from './hooks/useAuthContext'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
 import './App.css'
@@ -35,6 +37,10 @@ function App() {
             <Route 
               path="/board/:board_id"
               element = {<BoardView/>}
+            />
+            <Route
+              path='/profile'
+              element = {<Profile/>}
             />
           </Routes>
         </div>

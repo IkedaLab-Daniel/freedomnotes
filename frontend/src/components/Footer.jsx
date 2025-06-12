@@ -26,8 +26,8 @@ const Footer = () => {
                     <Link to="/">
                         <p>Recent Notes</p>
                     </Link>
-                    <Link to="/">
-                        <p>About</p>
+                    <Link to="/profile">
+                        <p>Profile</p>
                     </Link>
                     {user && (<p className='logout' onClick={handleLogout}>Logout</p>)}
                     {!user && (
