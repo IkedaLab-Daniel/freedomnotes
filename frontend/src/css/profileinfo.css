@@ -2,6 +2,10 @@
     position: relative;
 }
 
+#profile-info .note:hover{
+    opacity: 1;
+}
+
 #profile-info .username{
     font-size: 2rem;
 }
@@ -18,4 +22,29 @@
     cursor: pointer;
     text-decoration: underline;
     transform: translateY(-5px);
+}
+
+#profile-info .note-body{
+    color: black;
+    margin: 10px 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+#profile-info .note-status{
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px 0;
+    border: 2px black dashed;
+}
+
+#profile-info .note-delete{
+    text-align: center; 
+    padding: 5px;
+    border: 2px black solid;
+}
+
+
+p{
+    color: black;
 }
