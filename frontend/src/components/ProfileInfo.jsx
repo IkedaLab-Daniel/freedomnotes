@@ -7,7 +7,8 @@ import '../css/profileinfo.css';
 import checkSVG from '../assets/check.svg'
 import pendingSVG from '../assets/pending.svg'
 import deletedSVG from '../assets/deleted.svg'
-
+import anonSVG from '../assets/anon.svg'
+import findBoardSVG from '../assets/find-board.svg'
 const ProfileInfo = ({ user }) => {
 
     const [ backButton, setBackButton ] = useState("< Back");
@@ -119,7 +120,21 @@ const ProfileInfo = ({ user }) => {
                                 <p className='note-title'>{note.title}</p>
                                 <p className='note-date'>{formatDate(note.createdAt)}</p>
                                 <p className='note-body'>{note.body}</p>
-                                <p className='note-anon'>{note.anon ? ("Anonymous ✓") : ("")}</p>
+                                { note.anon && (
+                                    <div className="note-anon-wrapper">
+                                        <img src={anonSVG} alt="" />
+                                        <p className='note-anon'>Anonymous</p>
+                                    </div>
+                                )}
+
+                                <div className="find-on-board-wrapper">
+                                    <Link to={`/board/${note.board_id}`}>
+                                        <img src={findBoardSVG} />
+                                        <p className='find-on-board'>Find on Boards</p>
+                                    </Link>
+                                </div>
+                                
+
                                 <div className="status-container">
                                     { (note.status == "approved") && (
                                         <>

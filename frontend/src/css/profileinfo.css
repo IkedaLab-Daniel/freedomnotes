@@ -33,12 +33,12 @@
     margin: 10px 0;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
+    padding: 10px 0;
 }
 
 #profile-info .note-status.approved{
     color: rgb(44, 141, 30);
     text-align: center;
-    margin: 10px 0;
     padding: 5px;
     font-weight: 600;
 }
@@ -46,7 +46,6 @@
 #profile-info .note-status.pending{
     color: #3481b0;
     text-align: center;
-    margin: 10px 0;
     padding: 5px;
     font-weight: 600;
 }
@@ -73,8 +72,25 @@
     border-color: rgb(255, 87, 87);
 }
 
+#profile-info .note-anon-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile-info .note-anon-wrapper img{
+    width: 2rem;
+}
+
 #profile-info .note-anon{
     color: black;
+}
+
+#profile-info .find-on-board{
+    color: black;
+    text-align: center;
+    margin: 5px 0;
 }
 
 #profile-info .status-container{
@@ -87,3 +103,24 @@
 #profile-info .status-svg{
     width: 2rem;
 }
+
+#profile-info .find-on-board-wrapper a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: .4s;
+}
+
+#profile-info .find-on-board-wrapper a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+    color: black;
+    transform: scale(105%);
+}
+
+
+#profile-info .find-on-board-wrapper img{
+    width: 2rem;
+}
+
