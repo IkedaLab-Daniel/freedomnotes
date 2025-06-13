@@ -2,6 +2,15 @@
     position: relative;
 }
 
+#profile-info .my-notes{
+    border-top: 2px solid rgb(152, 152, 152);
+    font-size: 1.2rem;
+}
+
+#profile-info .my-notes h2{
+    margin: 10px 0 20px 40px;
+}
+
 #profile-info .note:hover{
     opacity: 1;
 }
@@ -12,6 +21,7 @@
 
 #profile-info .username{
     font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 #profile-info .back{
