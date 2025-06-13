@@ -36,33 +36,27 @@
 }
 
 #profile-info .note-status.approved{
-    color: rgb(12, 32, 9);
-    text-transform: uppercase;
+    color: rgb(44, 141, 30);
     text-align: center;
     margin: 10px 0;
-    border: 2px black dotted;
     padding: 5px;
-    background-color: rgb(135, 214, 128);
+    font-weight: 600;
 }
 
 #profile-info .note-status.pending{
-    color: rgb(12, 32, 9);
-    text-transform: uppercase;
+    color: #3481b0;
     text-align: center;
     margin: 10px 0;
-    border: 2px black dotted;
     padding: 5px;
-    background-color: rgb(128, 188, 214);
+    font-weight: 600;
 }
 
 #profile-info .note-status.archived{
-    color: rgb(12, 32, 9);
-    text-transform: uppercase;
+    color: #d02626;
     text-align: center;
     margin: 10px 0;
-    border: 2px black dashed;
     padding: 5px;
-    background-color: rgb(214, 128, 128);
+    font-weight: 600;
 }
 
 #profile-info .note-delete{
@@ -81,4 +75,15 @@
 
 #profile-info .note-anon{
     color: black;
+}
+
+#profile-info .status-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile-info .status-svg{
+    width: 2rem;
 }

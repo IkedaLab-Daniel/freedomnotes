@@ -38,7 +38,7 @@ section .note.pending{
 }
 
 section .note.archived{
-    background-color: #c78181;
+    background-color: #ef9696;
 }
 
 section .note.pending-notes{

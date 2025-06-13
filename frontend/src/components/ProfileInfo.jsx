@@ -2,7 +2,11 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { notifyError } from '../hooks/useToaster';
 
+// > assets
 import '../css/profileinfo.css';
+import checkSVG from '../assets/check.svg'
+import pendingSVG from '../assets/pending.svg'
+import deletedSVG from '../assets/deleted.svg'
 
 const ProfileInfo = ({ user }) => {
 
@@ -116,7 +120,27 @@ const ProfileInfo = ({ user }) => {
                                 <p className='note-date'>{formatDate(note.createdAt)}</p>
                                 <p className='note-body'>{note.body}</p>
                                 <p className='note-anon'>{note.anon ? ("Anonymous ✓") : ("")}</p>
-                                <p className={`note-status ${note.status}`}>{note.status}</p>
+                                <div className="status-container">
+                                    { (note.status == "approved") && (
+                                        <>
+                                            <img src={checkSVG} className="status-svg" />
+                                            <p className='note-status approved'>Approved</p>
+                                        </>
+                                    ) }
+                                    { (note.status == "pending") && (
+                                        <>
+                                            <img src={pendingSVG} className="status-svg" />
+                                            <p className='note-status pending'>Pending</p>
+                                        </>
+                                    ) }
+                                    { (note.status == "archived") && (
+                                        <>
+                                            <img src={deletedSVG} className="status-svg" />
+                                            <p className='note-status archived'>Deleted</p>
+                                        </>
+                                    ) }
+                                </div>
+                                
                                 {/* { (note.status !== "archived") && (
                                 // TODO : If the note is from the user, let the user archieve the noite
                                     <p 
