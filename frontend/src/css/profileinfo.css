@@ -6,6 +6,10 @@
     opacity: 1;
 }
 
+#profile-info .note:active{
+    transform: scale(100%);
+}
+
 #profile-info .username{
     font-size: 2rem;
 }
@@ -31,20 +35,50 @@
     border-bottom: 2px solid black;
 }
 
-#profile-info .note-status{
+#profile-info .note-status.approved{
+    color: rgb(12, 32, 9);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px 0;
+    border: 2px black dotted;
+    padding: 5px;
+    background-color: rgb(135, 214, 128);
+}
+
+#profile-info .note-status.pending{
+    color: rgb(12, 32, 9);
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px 0;
+    border: 2px black dotted;
+    padding: 5px;
+    background-color: rgb(128, 188, 214);
+}
+
+#profile-info .note-status.archived{
+    color: rgb(12, 32, 9);
     text-transform: uppercase;
     text-align: center;
     margin: 10px 0;
     border: 2px black dashed;
+    padding: 5px;
+    background-color: rgb(214, 128, 128);
 }
 
 #profile-info .note-delete{
     text-align: center; 
     padding: 5px;
-    border: 2px black solid;
+    border: 2px rgb(194, 63, 63) solid;
+    transition: .4s;
+    color: rgb(194, 63, 63);
 }
 
+#profile-info .note-delete:hover{
+    background-color: rgb(236, 87, 87);
+    color: white;
+    border-color: rgb(255, 87, 87);
+}
 
-p{
+#profile-info .note-anon{
     color: black;
 }

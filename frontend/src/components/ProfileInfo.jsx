@@ -83,8 +83,11 @@ const ProfileInfo = ({ user }) => {
                                 <p className='note-date'>{formatDate(note.createdAt)}</p>
                                 <p className='note-body'>{note.body}</p>
                                 <p className='note-anon'>{note.anon ? ("Anonymous ✓") : ("")}</p>
-                                <p className='note-status'>{note.status}</p>
-                                <p className='note-delete'>Delete</p>
+                                <p className={`note-status ${note.status}`}>{note.status}</p>
+                                { (note.status !== "archived") && (
+                                    <p className='note-delete'>Delete</p>
+                                )}
+                                
                             </div>
                         ))}
                     </div>
