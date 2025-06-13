@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { notifyError } from '../hooks/useToaster';
+
 import '../css/profileinfo.css';
 
 const ProfileInfo = ({ user }) => {
@@ -48,6 +49,38 @@ const ProfileInfo = ({ user }) => {
         fetchUserNote();
     }, [])
 
+    const unlistNote = async ( note_id ) => {
+        setIsLoading(true);
+
+        try{
+            const response = await fetch(`http://localhost:4000/api/note/${note_id}/archive`, {
+                method : "PATCH",
+                headers : {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
+
+            const json = await response.json()
+
+            if (response.ok){
+                setIsLoading(false);
+                notifySuccess('Note Deleted')
+                onClose()
+                onSUDO();  
+            }
+
+            if (!response.ok){
+                setIsLoading(false)
+                notifyError( json.error )
+            }
+
+        } catch (error){
+            setIsLoading(false);
+            notifyError( 'Server offline ZZZ' )
+            console.log(error)
+        }
+    }    
+
     return(
         <>
             <section id="profile-info">
@@ -84,9 +117,15 @@ const ProfileInfo = ({ user }) => {
                                 <p className='note-body'>{note.body}</p>
                                 <p className='note-anon'>{note.anon ? ("Anonymous ✓") : ("")}</p>
                                 <p className={`note-status ${note.status}`}>{note.status}</p>
-                                { (note.status !== "archived") && (
-                                    <p className='note-delete'>Delete</p>
-                                )}
+                                {/* { (note.status !== "archived") && (
+                                // TODO : If the note is from the user, let the user archieve the noite
+                                    <p 
+                                        className='note-delete'
+                                        onClick={ () => unlistNote(note._id) }
+                                        >
+                                    Delete
+                                    </p>
+                                )} */}
                                 
                             </div>
                         ))}

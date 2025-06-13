@@ -41,7 +41,6 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
     }
 
     const unlistNote = async () => {
-        console.log("New unlist method called")
         setIsLoading(true);
 
         try{
@@ -93,6 +92,7 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
                     {( note.status === "pending" || note.status === "archived") && (
                         <p className='approve' onClick={approveNote}>✅ Approve</p>
                     )}
+                    { isLoading && (<p style={{color: "black"}}>Loading ...</p>)}
                 </div>
             </div>
         </>
