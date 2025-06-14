@@ -21,6 +21,14 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
         throw Error("Required field/s not empty")
     }
 
+    // ? Validate limit
+    if (title.length >= 25){
+        throw Error("Title too long")
+    }
+    if (body.length >= 300){
+        throw Error("Message too long")
+    }
+
     // ? Check if the board already has 20 notes
     const board = await Board.findById(board_id);
     if (!board) {

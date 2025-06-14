@@ -2,6 +2,7 @@ const Note = require('../models/NoteModel');
 
 const createnote = async (req,res) => {
     const { title, body, tags, board_id, user_username, anon } = req.body
+
     try {
         const note = await Note.createnote( title, body, tags, board_id, user_username, anon);
         res.status(201).json( { message: "Note added", note : note._id})
