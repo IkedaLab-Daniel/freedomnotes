@@ -17,8 +17,15 @@ const BoardView = () => {
     const [ showAddModal, setShowAddModal] = useState(false);
     const [selectedNote, setSelectedNote] = useState(null);
 
-
     const  { board_id } = useParams()
+
+    const limitMessage = ( message ) => {
+        if ( message.length > 70){
+            const shortMessage = message.slice(0, 70)
+            return `${shortMessage}...`
+        }
+        return message
+    }
 
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -82,8 +89,9 @@ const BoardView = () => {
                                 setSelectedNote(note)
                                 setShowModal(true)
                             }}>
-                            <p className='note-title'>{note.title}</p>
+                            <p className='note-title'>"{note.title}"</p>
                             <p className='note-date'>{formatDate(note.createdAt)}</p>
+                            <p className='note-body'>{limitMessage(note.body)}</p>
                         </div>
                     ))}
                     { (pendingNotes > 0) && (

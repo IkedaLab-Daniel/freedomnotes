@@ -73,6 +73,11 @@ section .note .note-date{
     color: rgb(77, 77, 77);
 }
 
+section .note .note-body{
+    color: black;
+}
+
+
 section .pagination-container{
     margin-top: 20px;
     display: flex;

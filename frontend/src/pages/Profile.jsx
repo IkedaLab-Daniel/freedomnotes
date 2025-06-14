@@ -10,7 +10,6 @@ const Profile = () => {
         return (
             <>
                 <NotLoggedIn/>
-                <Footer/>
             </>
         );
     } else{

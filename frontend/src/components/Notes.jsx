@@ -23,6 +23,14 @@ const Notes = () => {
 
     const { user } = useAuthContext();
 
+    const limitMessage = ( message ) => {
+        if ( message.length > 70){
+            const shortMessage = message.slice(0, 70)
+            return `${shortMessage}...`
+        }
+        return message
+    }
+
     function formatDate(dateString) {
         const date = new Date(dateString);
         const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
@@ -186,7 +194,8 @@ const Notes = () => {
                                 setSelectedNote(note)
                                 setShowModal(true)
                             }}>
-                            <p className='note-title'>{note.title}</p>
+                            <p className='note-title'>"{note.title}"</p>
+                            <p className='note-body'>{limitMessage(note.body)}</p>
                             <p className='note-date'>{formatDate(note.createdAt)}</p>
                         </div>
                     ))}
