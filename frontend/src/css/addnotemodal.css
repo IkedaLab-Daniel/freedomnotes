@@ -18,7 +18,6 @@
 .add-note-modal form .input-group {
     display: flex;
     align-items: center;
-    margin-bottom: 16px;
 }
 
 .add-note-modal form textarea{
@@ -29,7 +28,14 @@
     border-radius: 4px;
     background-color: #fdfef1;
     color: black;
+    resize: none;
 }
+
+.add-note-modal form textarea.has-error{
+    border-color: red;
+    display: inline-block;
+}
+
 
 .add-note-modal form textarea:focus{
     outline: none;
@@ -39,6 +45,10 @@
 .add-note-modal form label{
     display: block;
     color: black;
+}
+
+.add-note-modal form .field-error{
+    color: rgb(255, 53, 53);
 }
 
 
@@ -61,6 +71,11 @@
     outline: none;
     background-color: #eff0e4;
 }
+
+.add-note-modal form .input-group input.has-error{
+    border: 2px solid rgb(255, 95, 95);
+}
+
 
 .add-note-modal form .checkbox-container{
     display: flex;
@@ -104,7 +119,24 @@
     font-size: 1.4rem;
     border-radius: 4px;
     transition: .4s;
+    cursor: pointer;
 }
+
+.add-note-modal form .btn-container button.disable{
+    width: 100%;
+    border: 2px solid rgb(52, 52, 52);
+    padding: 6px;
+    background-color: rgb(191, 191, 191);
+    color: rgb(54, 54, 54);
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    transition: .4s;
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 
 .add-note-modal form .btn-container button.cancel-btn{
     width: 100%;
@@ -115,12 +147,12 @@
     text-align: center;
     font-size: 1.4rem;
     border-radius: 4px;
+    cursor: pointer;
     transition: .4s;
 }
 
 .add-note-modal form .btn-container button:hover{
     text-decoration: none;
-    cursor: pointer;
     transform: translateY(-4px);
 }
 

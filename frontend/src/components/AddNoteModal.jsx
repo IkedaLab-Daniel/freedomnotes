@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
 import '../css/addnotemodal.css'
@@ -11,7 +11,32 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
     const [ message, setMessage ] = useState('')
     const [ anon, setAnon ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
+
+    // ? Error states
     const [ error, setError ] = useState('')
+    const [ titleError, setTitleError] = useState(false)
+    const [ messageError, setMessageError ] = useState(false)
+
+    const validateTitle = () => {
+        if (title.length >= 25){
+            setTitleError(true)
+        } else{
+            setTitleError(false)
+        }
+    }
+
+    const validateMessage = () => {
+        if (message.length >= 300){
+            setMessageError(true)
+        } else{
+            setMessageError(false)
+        }
+    }
+
+    useEffect(() => {
+        validateTitle()
+        validateMessage()
+    }, [title, message])
 
     const addNote = async (e) => {
         e.preventDefault()
@@ -64,22 +89,28 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
             <div className="black-bg"></div>
             <div className="add-note-modal">
                 <form action="" onSubmit={addNote}>
-                    <div className="input-group">
+                    <div className={"input-group"}>
                         <label htmlFor="title">Title:</label>
                         <input 
                             type="text" 
                             id="title" 
                             name="title" 
                             value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            className= {titleError && ('has-error')}
+                            onChange={(e) => {setTitle(e.target.value)}}
                         />
                     </div>
+                    { titleError && (<span className='field-error'>Title must be below 25 characters</span>)}
+                    
                     <label htmlFor="message">Message: </label>
                     <textarea 
                         name="message" 
                         id="message"
                         value={message}
+                        className= {messageError && ('has-error')}
                         onChange={(e) => setMessage(e.target.value)}></textarea>
+                    { messageError && (<span className='field-error'>Message must be below 300 characters</span>)}
+
                     <div className="checkbox-container">
                         <input 
                             type='checkbox' 
@@ -90,7 +121,12 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                     </div>
                      
                     <div className="btn-container">
-                        <button className='add-btn'>+ Add Note</button>
+                        <button 
+                            type='submit' 
+                            className={`add-btn ${(titleError || messageError) && 'disable'}`}
+                        >
+                            + Add Note
+                        </button>
                         <button className='cancel-btn' onClick={onClose}>X Cancel</button>
                     </div>
                     { isLoading && (
