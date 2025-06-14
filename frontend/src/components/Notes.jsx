@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { Utils } from '../utils/utils';
 import ViewNote from './ViewNote';
 import '../css/notes.css'
 
@@ -22,6 +23,7 @@ const Notes = () => {
     const [showModal, setShowModal] = useState(false);
 
     const { user } = useAuthContext();
+    const { formatDate } = Utils();
 
     const limitMessage = ( message ) => {
         if ( message.length > 70){
@@ -29,15 +31,6 @@ const Notes = () => {
             return `${shortMessage}...`
         }
         return message
-    }
-
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const year = date.getFullYear();
-        return `${month} ${day}, ${year}`;
     }
 
     const fetchNotes = async () => {

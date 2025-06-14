@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { notifySuccess, notifyError } from '../hooks/useToaster';
+import { Utils } from '../utils/utils';
+
+// > Assets
+import userSVG from '../assets/user.svg'
+import anonSVG from '../assets/anon.svg'
 import '../css/viewNote.css';
 
 
@@ -9,6 +14,7 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
 
     const [ isLoading, setIsLoading ] = useState(false);
     const { user } = useAuthContext();
+    const { formatDate } = Utils();
 
     const approveNote = async () => {
         setIsLoading(true)
@@ -77,13 +83,20 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
             <div id="view-note-modal">
                 <div className="view-note">
                     <h2 className='title'>{note.title}</h2>
-                    <p className='content'>{note.body}</p>
                     { note.anon ? (
-                        <p className='username anon'>- Anonymous {note.anon}</p>
+                        <div className="username-wrapper">
+                            <img src={anonSVG} alt="" />
+                            <p className='username'>Anonymous</p>
+                        </div>
                     ): (
-                        <p className='username'>- @{note.user_username} {note.anon}</p>
+                        <div className="username-wrapper">
+                            <img src={userSVG} alt="" />
+                            <p className='username'>@{note.user_username}</p>
+                        </div>
+                        
                     )}
-                    
+                    <p className='date'>{formatDate(note.createdAt)}</p>
+                    <p className='content'>{note.body}</p>
                     <p className='close' onClick={onClose}>X Close</p>
                     { ((note.status !== "archived" || note.status === "pending") && user.role === "admin") && (
                         <p className='delete' onClick={unlistNote}>❌ Delete</p>

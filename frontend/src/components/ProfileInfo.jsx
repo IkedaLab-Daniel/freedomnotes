@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { notifyError } from '../hooks/useToaster';
+import { Utils } from '../utils/utils';
 
 // > assets
 import '../css/profileinfo.css';
@@ -15,14 +16,7 @@ const ProfileInfo = ({ user }) => {
     const [ notes, setNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false)
 
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."];
-        const month = months[date.getMonth()];
-        const day = date.getDate();
-        const year = date.getFullYear();
-        return `${month} ${day}, ${year}`;
-    }
+    const { formatDate } = Utils()
 
     const fetchUserNote = async () => {
         setIsLoading(true)

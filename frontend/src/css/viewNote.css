@@ -33,17 +33,38 @@
     color: black;
     font-weight: 600;
     font-size: 1.75rem;
-    margin-bottom: 10px;
+
 }
 
 #view-note-modal .view-note .content{
     color: rgb(36, 36, 36);
 }
 
-#view-note-modal .view-note .username{
-    color: rgb(36, 36, 36);
-    margin-bottom: 25px;
+#view-note-modal .view-note .date{
+    color: black;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid rgb(81, 81, 81);
+    padding-bottom: 2px;
 }
+
+
+#view-note-modal .view-note .username-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+#view-note-modal .view-note .username-wrapper img{
+    width: 1.4rem;
+}
+
+#view-note-modal .view-note .username-wrapper .username{
+    color: black;
+}
+
 
 #view-note-modal .close{
     color: rgb(225, 17, 17);
