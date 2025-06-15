@@ -13,7 +13,7 @@ const requireAuth = async (req, res, next) => {
     const token = authorization.split(' ')[1] // ? sample - authorization: 'Bearer <token here>'
 
     try {
-        const { _id, role } = jwt.verify(token, process.env.SECRET)
+        const { _id } = jwt.verify(token, process.env.SECRET)
         
         // ? append user to the 'req'
         const user = await User.findOne({_id}).select('_id role')
@@ -24,7 +24,11 @@ const requireAuth = async (req, res, next) => {
         req.user = user;
         next()
     } catch (error){
-        console.log( error );
+        if ( error.name === 'TokenExpiredError'){
+            res.status(401).json({ error: 'Session Expired'})
+            return
+        }
+        console.error( error );
         res.status(401).json( { error : "Request is not authorized"} )
     }
 }
