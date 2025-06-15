@@ -27,6 +27,7 @@ section .note{
     justify-content: space-between;
     border-radius: 4px;
     transition: .4s;
+    overflow-x: hidden;
 }
 
 section .note.approved{

@@ -190,8 +190,8 @@ const Notes = () => {
                                 setShowModal(true)
                             }}>
                             <p className='note-title'>"{note.title}"</p>
-                            <p className='note-body'>{limitMessage(note.body)}</p>
                             <p className='note-date'>{formatDate(note.createdAt)}</p>
+                            <p className='note-body'>{limitMessage(note.body)}</p>
                         </div>
                     ))}
                 </div>

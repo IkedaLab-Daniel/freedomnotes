@@ -38,6 +38,8 @@
 
 #view-note-modal .view-note .content{
     color: rgb(36, 36, 36);
+    margin-bottom: 40px;
+    overflow-x: hidden;
 }
 
 #view-note-modal .view-note .date{
