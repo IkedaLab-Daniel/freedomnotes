@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { notifyError } from '../hooks/useToaster';
+import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { Utils } from '../utils/utils';
 
 // > assets
@@ -17,6 +17,8 @@ const ProfileInfo = ({ user }) => {
     const [ backButton, setBackButton ] = useState("< Back");
     const [ notes, setNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false)
+    const [ deteleModal, setDeleteModal ] = useState(false)
+    const [ noteToDelete, setNoteToDelete ]= useState();
 
     const { formatDate, softLogout } = Utils()
 
@@ -53,11 +55,11 @@ const ProfileInfo = ({ user }) => {
         fetchUserNote();
     }, [])
 
-    const unlistNote = async ( note_id ) => {
+    const unlistNoteByUser = async ( note_id ) => {
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/${note_id}/archive`, {
+            const response = await fetch(`http://localhost:4000/api/note/archive-by-user?note_id=${note_id}&username=${user.username}`, {
                 method : "PATCH",
                 headers : {
                     Authorization: `Bearer ${user.token}`
@@ -69,8 +71,8 @@ const ProfileInfo = ({ user }) => {
             if (response.ok){
                 setIsLoading(false);
                 notifySuccess('Note Deleted')
-                onClose()
-                onSUDO();  
+                fetchUserNote()
+                setDeleteModal(false)
             }
 
             if (!response.ok){
@@ -84,6 +86,11 @@ const ProfileInfo = ({ user }) => {
             console.log(error)
         }
     }    
+
+    const passDeleteNote = ( note_id ) => {
+        setDeleteModal(true);
+        setNoteToDelete(note_id)
+    }
 
     return(
         <>
@@ -126,23 +133,22 @@ const ProfileInfo = ({ user }) => {
                                     </div>
                                 )}
 
-                                <div className="find-on-board-wrapper">
-                                    <Link to={`/board/${note.board_id}`}>
-                                        <img src={findBoardSVG} />
-                                        <p className='find-on-board'>Find on Boards</p>
-                                    </Link>
-                                </div>
+                                { (note.status !== "archived") && (
+                                    <div className="find-on-board-wrapper">
+                                        <Link to={`/board/${note.board_id}`}>
+                                            <img src={findBoardSVG} />
+                                            <p className='find-on-board'>Find on Boards</p>
+                                        </Link>
+                                    </div>
+                                )}
+
+                                
 
                                 { (note.status !== "archived") && (
                                 // TODO : If the note is from the user, let the user archieve the noite
-                                    <div className="delete-container">
+                                    <div className="delete-container" onClick={ () => passDeleteNote(note._id) }>
                                         <img src={deleteNoteSVG} alt="" />
-                                        <p 
-                                            className='note-delete'
-                                            onClick={ () => unlistNote(note._id) }
-                                            >
-                                        Delete
-                                        </p>
+                                        <p className='note-delete'>Delete</p>
                                     </div>
                                     
                                 )}
@@ -170,9 +176,23 @@ const ProfileInfo = ({ user }) => {
                             </div>
                         ))}
                     </div>
-
                 </div>
             </section>
+
+            { deteleModal && (
+                <div className="modal-container">
+                    <div className="black-bg"></div>
+                    <div className="confirm-modal">
+                        <h2>Delete Note?</h2>
+                        <p>This action cannot be undo</p>
+                        <button className='confirm' onClick={() => unlistNoteByUser(noteToDelete)}>Confirm</button>
+                        <button className='cancel' onClick={() => setDeleteModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
+            
+            
+            
         </>
     )
 }
