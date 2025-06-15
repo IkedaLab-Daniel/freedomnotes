@@ -11,7 +11,8 @@ const {
     approveNote,
     getApprovedNotes,
     getNotesByBoard,
-    getUserNote
+    getUserNote,
+    archiveNoteByUser
 } = require('../controllers/noteController');
 
 // > middlewares
@@ -35,7 +36,11 @@ router.post('/', requireAuth, createnote);
 // ? Delete a note
 router.delete('/:id', requireAuth, requireAdmin, deleteNote);
 
+// ? Route to archive note by user (using query parameters)
+router.patch('/archive-by-user', requireAuth, archiveNoteByUser);
+
 // ? Update a note
+// ! since thiis is :id, change for to more specific like "update-note/:id"
 router.patch('/:id', requireAuth, updatenote);
 
 // ? Archive a  note

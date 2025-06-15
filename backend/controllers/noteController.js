@@ -88,7 +88,6 @@ const deleteNote = async (req, res) => {
     }
 }
 
-// TODO : If user's ID does not match with the note's user_username, throw error
 const archiveNote = async (req, res) => {
     const _id = req.params.id;
 
@@ -100,6 +99,18 @@ const archiveNote = async (req, res) => {
         res.status(200).json({ message: "Note archieved",  note : note});
     } catch (error){
         res.status(400).json({ error : error.message})
+    }
+}
+
+const archiveNoteByUser = async (req, res) => {
+    const note_id = req.query.note_id;
+    const username = req.query.username;
+
+    try{
+        const note = await Note.archiveNoteByUser( note_id, username);
+        res.status(200).json("Note deleted");
+    } catch (error){
+        res.status(400).json({ error: error.message });
     }
 }
 
@@ -126,5 +137,6 @@ module.exports = {
     approveNote,
     getApprovedNotes,
     getNotesByBoard,
-    getUserNote
+    getUserNote,
+    archiveNoteByUser
 }

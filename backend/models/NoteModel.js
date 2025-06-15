@@ -190,6 +190,41 @@ noteSchema.statics.archiveNote = async function ( note_id ){
     return note;
 }
 
+// ? User archive their note
+noteSchema.statics.archiveNoteByUser = async function ( note_id, username ){
+    if (!note_id){
+        throw Error("No Note's ID on payload")
+    }
+    
+    const note = await this.findOneAndUpdate( { _id : note_id }, { status: "archived"} )
+
+    if (!note){
+        throw Error("Note does not exist")
+    }
+
+    // ? Check if the username matches the note's user_username
+    if (note.user_username !== username) {
+        throw Error("You are not authorized to archive this note");
+    }
+
+    // ? Remove the note's ID on the Board's Notes Array
+    if (note.board_id || note.board_id !== null) {
+        try{
+            await Board.findByIdAndUpdate(
+                note.board_id,
+                { $pull: { notes: note._id.toString() } }
+            );
+            console.log("Note's board ID:", note.board_id);
+        } catch (error){
+            console.log( {delBoardErr : error.message});
+        }
+    } else {
+        console.log('note.board_id is empty')
+    }
+
+    return note;
+}
+
 // ? static for approving a note
 noteSchema.statics.approveNote = async function (_id) {
     if (!_id) {
