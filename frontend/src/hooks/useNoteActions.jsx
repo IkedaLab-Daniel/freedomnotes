@@ -2,12 +2,14 @@ import { notifySuccess, notifyError } from "./useToaster";
 
 export const useNoteActions = ( user, note) => {
 
+    const apiURL = import.meta.env.VITE_API_URL;
+
     const unlistNote = async (note_id) => {
         console.log("New unlist method called")
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/${note_id}/archive`, {
+            const response = await fetch(`${apiURL}/api/note/${note_id}/archive`, {
                 method : "PATCH",
                 headers : {
                     Authorization: `Bearer ${user.token}`

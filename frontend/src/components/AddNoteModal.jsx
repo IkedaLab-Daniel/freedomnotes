@@ -14,6 +14,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
     const [ message, setMessage ] = useState('')
     const [ anon, setAnon ] = useState();
     const [ isLoading, setIsLoading ] = useState(false);
+    const apiURL = import.meta.env.VITE_API_URL;
 
     // ? Error states
     const [ error, setError ] = useState('')
@@ -46,7 +47,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
         setIsLoading(true);
 
         try{
-            const response = await fetch('http://localhost:4000/api/note', {
+            const response = await fetch(`${apiURL}/api/note`, {
                 method: "POST",
                 headers : {
                     'Content-Type': 'application/json',

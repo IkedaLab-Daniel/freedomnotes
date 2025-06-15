@@ -12,6 +12,8 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
 
     const { dispatch } = useAuthContext()
+    const apiURL = import.meta.env.VITE_API_URL;
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -31,7 +33,7 @@ const Signup = () => {
         }
 
         try{
-            const response = await fetch('http://localhost:4000/api/user/signup', {
+            const response = await fetch(`${apiURL}/api/user/signup`, {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({username, password})

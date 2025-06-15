@@ -7,11 +7,12 @@ const Boards = () => {
 
     const [ boards, setBoards ] = useState(null)
     const [ isLoading, setIsLoading ] = useState(false)
+    const apiURL = import.meta.env.VITE_API_URL;
 
     const fetchBoard = async () => {
         setIsLoading(true)
         try{
-            const response = await fetch('http://localhost:4000/api/board')
+            const response = await fetch(`${apiURL}/api/board`)
             const json = await response.json();
             if (response.ok){
                 setIsLoading(false)

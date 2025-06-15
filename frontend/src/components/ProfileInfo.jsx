@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../hooks/useToaster';
-import { Utils } from '../utils/utils';
+import { Utils } from '../utils/Utils';
 
 // > assets
 import '../css/profileinfo.css';
@@ -21,12 +21,13 @@ const ProfileInfo = ({ user }) => {
     const [ noteToDelete, setNoteToDelete ]= useState();
 
     const { formatDate, softLogout } = Utils()
+    const apiURL = import.meta.env.VITE_API_URL;
 
     const fetchUserNote = async () => {
         setIsLoading(true)
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/user/${user.username}`, {
+            const response = await fetch(`${apiURL}/api/note/user/${user.username}`, {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
@@ -59,7 +60,7 @@ const ProfileInfo = ({ user }) => {
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/archive-by-user?note_id=${note_id}&username=${user.username}`, {
+            const response = await fetch(`${apiURL}/api/note/archive-by-user?note_id=${note_id}&username=${user.username}`, {
                 method : "PATCH",
                 headers : {
                     Authorization: `Bearer ${user.token}`

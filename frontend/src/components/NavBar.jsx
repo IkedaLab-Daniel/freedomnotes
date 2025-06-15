@@ -53,6 +53,10 @@ const NavBar = () => {
                     
                 </div>
 
+                <div className="links-container">
+                    <Link to="/profile">Profile</Link>
+                </div>
+
                 <div className="user-buttons-container">
                     { user.username &&
                     <>

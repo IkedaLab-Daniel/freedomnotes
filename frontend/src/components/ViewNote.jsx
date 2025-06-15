@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { notifySuccess, notifyError } from '../hooks/useToaster';
-import { Utils } from '../utils/utils';
+import { Utils } from '../utils/Utils';
 
 // > Assets
 import userSVG from '../assets/user.svg'
@@ -15,12 +15,13 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
     const [ isLoading, setIsLoading ] = useState(false);
     const { user } = useAuthContext();
     const { formatDate } = Utils();
+    const apiURL = import.meta.env.VITE_API_URL;
 
     const approveNote = async () => {
         setIsLoading(true)
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/${note._id}/approve`, {
+            const response = await fetch(`${apiURL}/api/note/${note._id}/approve`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${user.token}`
@@ -50,7 +51,7 @@ const ViewNote = ({note, onClose, onSUDO } ) => {
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/${note._id}/archive`, {
+            const response = await fetch(`${apiURL}/api/note/${note._id}/archive`, {
                 method : "PATCH",
                 headers : {
                     Authorization: `Bearer ${user.token}`

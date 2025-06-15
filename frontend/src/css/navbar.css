@@ -8,6 +8,25 @@
     font-size: 1.2rem;
 }
 
+#navbar > div{
+    width: 33%;
+}
+
+#navbar div:nth-child(1) { 
+    display: flex;
+    justify-content: left;
+}
+
+#navbar div:nth-child(2) { 
+    display: flex;
+    justify-content: center;
+}
+
+#navbar div:nth-child(3) { 
+    display: flex;
+    justify-content: end;
+ }
+
 #navbar a{
     text-decoration: none;
     display: flex;

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Utils } from '../utils/utils';
+import { Utils } from '../utils/Utils';
 import ViewNote from './ViewNote';
 import '../css/notes.css'
 
@@ -24,6 +24,8 @@ const Notes = () => {
 
     const { user } = useAuthContext();
     const { formatDate } = Utils();
+    const apiURL = import.meta.env.VITE_API_URL;
+
 
     const limitMessage = ( message ) => {
         if ( message.length > 70){
@@ -37,7 +39,7 @@ const Notes = () => {
         setIsLoading(true);
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note?page=${page}&limit=10`)
+            const response = await fetch(`${apiURL}/api/note?page=${page}&limit=10`)
             const json = await response.json();
 
             if (response.ok){
@@ -63,7 +65,7 @@ const Notes = () => {
         setSudo(true)
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/all?page=${page}`, {
+            const response = await fetch(`${apiURL}/api/note/all?page=${page}`, {
                 headers : {
                     Authorization: `Bearer ${user.token}`
                 }
@@ -92,7 +94,7 @@ const Notes = () => {
         setIsLoading(true);
         
         try{
-            const response = await fetch(`http://localhost:4000/api/note?page=${nextPage}&limit=10`)
+            const response = await fetch(`${apiURL}/api/note?page=${nextPage}&limit=10`)
             const json = await response.json();
 
             if (response.ok){
@@ -132,7 +134,7 @@ const Notes = () => {
 
         try {
             const prev = page - 1;
-            const response = await fetch(`http://localhost:4000/api/note?page=${prev}&limit=10`);
+            const response = await fetch(`${apiURL}/api/note?page=${prev}&limit=10`);
             const json = await response.json();
 
             if (response.ok) {

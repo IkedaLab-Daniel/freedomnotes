@@ -18,6 +18,7 @@ const BoardView = () => {
     const [selectedNote, setSelectedNote] = useState(null);
 
     const  { board_id } = useParams()
+    const apiURL = import.meta.env.VITE_API_URL;
 
     const limitMessage = ( message ) => {
         if ( message.length > 70){
@@ -40,7 +41,7 @@ const BoardView = () => {
         setIsLoading(true)
 
         try{
-            const response = await fetch(`http://localhost:4000/api/note/board/${board_id}`)
+            const response = await fetch(`${apiURL}/api/note/board/${board_id}`)
             const json = await response.json();
 
             if (response.ok){
