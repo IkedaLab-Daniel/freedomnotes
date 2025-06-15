@@ -10,13 +10,15 @@ import pendingSVG from '../assets/pending.svg'
 import deletedSVG from '../assets/deleted.svg'
 import anonSVG from '../assets/anon.svg'
 import findBoardSVG from '../assets/find-board.svg'
+import deleteNoteSVG from '../assets/delete-note.svg'
+
 const ProfileInfo = ({ user }) => {
 
     const [ backButton, setBackButton ] = useState("< Back");
     const [ notes, setNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false)
 
-    const { formatDate } = Utils()
+    const { formatDate, softLogout } = Utils()
 
     const fetchUserNote = async () => {
         setIsLoading(true)
@@ -30,7 +32,10 @@ const ProfileInfo = ({ user }) => {
             const json = await response.json()
             if (!response.ok){
                 setIsLoading(false);
-                notifyError("Error getting your notes...")
+                notifyError(json.error)
+                if (json.error === "Session Expired"){
+                    softLogout();
+                }
                 return
             }
             if (response.ok){
@@ -127,7 +132,20 @@ const ProfileInfo = ({ user }) => {
                                         <p className='find-on-board'>Find on Boards</p>
                                     </Link>
                                 </div>
-                                
+
+                                { (note.status !== "archived") && (
+                                // TODO : If the note is from the user, let the user archieve the noite
+                                    <div className="delete-container">
+                                        <img src={deleteNoteSVG} alt="" />
+                                        <p 
+                                            className='note-delete'
+                                            onClick={ () => unlistNote(note._id) }
+                                            >
+                                        Delete
+                                        </p>
+                                    </div>
+                                    
+                                )}
 
                                 <div className="status-container">
                                     { (note.status == "approved") && (
@@ -149,17 +167,6 @@ const ProfileInfo = ({ user }) => {
                                         </>
                                     ) }
                                 </div>
-                                
-                                {/* { (note.status !== "archived") && (
-                                // TODO : If the note is from the user, let the user archieve the noite
-                                    <p 
-                                        className='note-delete'
-                                        onClick={ () => unlistNote(note._id) }
-                                        >
-                                    Delete
-                                    </p>
-                                )} */}
-                                
                             </div>
                         ))}
                     </div>

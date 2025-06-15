@@ -68,19 +68,33 @@
     font-weight: 600;
 }
 
-#profile-info .note-delete{
-    text-align: center; 
-    padding: 5px;
-    border: 2px rgb(194, 63, 63) solid;
+#profile-info .delete-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     transition: .4s;
-    color: rgb(194, 63, 63);
 }
 
-#profile-info .note-delete:hover{
-    background-color: rgb(236, 87, 87);
-    color: white;
-    border-color: rgb(255, 87, 87);
+#profile-info .delete-container:hover {
+    animation: wiggle 0.4s;
+    animation-timing-function: ease-in-out;
+    text-decoration: underline;
+    color: rgb(247, 10, 10);
+    font-weight: 600;
 }
+
+#profile-info .delete-container .note-delete{
+    text-align: center;
+    transition: .4s;
+    color: #c23f3f;
+}
+
+
+#profile-info .delete-container img{
+    width: 2rem;
+}
+
 
 #profile-info .note-anon-wrapper{
     display: flex;
@@ -134,3 +148,12 @@
     width: 2rem;
 }
 
+@keyframes wiggle {
+  0% { transform: rotate(-5deg); }
+  15% { transform: rotate(5deg); }
+  30% { transform: rotate(-5deg); }
+  45% { transform: rotate(5deg); }
+  60% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}

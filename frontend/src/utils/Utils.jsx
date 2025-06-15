@@ -10,5 +10,13 @@ export const Utils = () => {
         return `${month} ${day}, ${year}`;
     }
 
-    return { formatDate }
+    // ? This is a softLogut
+    // ? Logout user without notification
+    // ? Use when token expires and need to logout user
+    const softLogout = () => {
+        localStorage.removeItem('user');
+        dispatch( { type: 'LOGOUT' } );
+    }
+
+    return { formatDate, softLogout }
 }

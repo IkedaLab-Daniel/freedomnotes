@@ -100,6 +100,10 @@
     color: black;
 }
 
+.add-note-modal form .btn-icon{
+    width: 1.8rem;
+}
+
 
 .add-note-modal form .btn-container{
     display: flex;
@@ -120,6 +124,10 @@
     border-radius: 4px;
     transition: .4s;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 .add-note-modal form .btn-container button.disable{
@@ -149,6 +157,10 @@
     border-radius: 4px;
     cursor: pointer;
     transition: .4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 .add-note-modal form .btn-container button:hover{

@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { useAuthContext } from '../hooks/useAuthContext';
-import '../css/addnotemodal.css'
 
+// > Assets
+import '../css/addnotemodal.css'
+import addSVG from '../assets/add.svg'
+import cancelSVG from '../assets/cancel.svg'
 const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
 
     const { user } = useAuthContext()
@@ -125,9 +128,13 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                             type='submit' 
                             className={`add-btn ${(titleError || messageError) && 'disable'}`}
                         >
-                            + Add Note
+                            <img className='btn-icon' src={addSVG}  />
+                            <span>Add Note</span>
                         </button>
-                        <button className='cancel-btn' onClick={onClose}>X Cancel</button>
+                        <button className='cancel-btn' onClick={onClose}>
+                            <img src={cancelSVG} className="btn-icon" />
+                            <span>Cancel</span>
+                        </button>
                     </div>
                     { isLoading && (
                         <p className='loading'>Adding</p>
