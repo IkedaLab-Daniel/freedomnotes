@@ -86,11 +86,6 @@
     gap: 10px;
 }
 
-#navbar .logo-container .show-on-mobile{
-    display: none;
-}
-
-
 #navbar .logo-container img{
     width: 50px;
 }
@@ -98,6 +93,14 @@
 #navbar .logo-container h1{
     font-size: 1.7rem;
     color: #fcdc8a;
+}
+
+#navbar .links-container .show-on-mobile{
+    display: none;
+}
+
+#navbar .links-container .hide-on-mobile{
+    display: block;
 }
 
 @media (max-width: 600px){

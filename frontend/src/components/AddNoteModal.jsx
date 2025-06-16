@@ -124,7 +124,7 @@ const AddNoteModal = ( { onSUDO, onClose, board, totalNotes } ) => {
                         <span>Anonymous</span>
                     </div>
                      
-                    <div className="btn-container">
+                    <div className="btn-container-addnote">
                         <button 
                             type='submit' 
                             className={`add-btn ${(titleError || messageError) && 'disable'}`}

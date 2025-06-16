@@ -158,4 +158,47 @@ section .pagination-container .pagination .disabled:hover{
 
 }
 
+@media (max-width: 600px){
+    section{
+        margin: 10px;
+        padding: 10px;
+        background-color: #393f46;
+    }
 
+    section .heading{
+        font-size: 1.2rem;
+    }
+
+    .btn-container{
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 10px;
+        z-index: 6;
+        background-color: rgb(217, 217, 217);
+        padding: 8px;
+        width: 90vw;
+        border: 2px solid black;
+        border-radius: 4px;
+    }
+
+    .btn-container p{
+        font-size: 1rem;
+        transition: .4s;
+        color: black;
+    }
+
+    .btn-container span.full{
+        color: rgb(229, 229, 229);
+        font-size: 1rem;
+        position: fixed;
+        bottom: 60px;
+        z-index: 6;
+        left: 30%;
+        background-color: rgb(216, 39, 39);
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+}

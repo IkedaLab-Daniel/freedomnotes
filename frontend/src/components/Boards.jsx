@@ -39,11 +39,12 @@ const Boards = () => {
             <section id="boards">
                 <div className="heading">
                     <h1>Boards</h1>
+                    <p>Select board to add note</p>
                 </div>
 
                 <div className="boards-container">
                     { isLoading && (<p>Loading ...</p>)}
-                    { !boards && (<p>No Boards</p>)}
+                    { (!boards && !isLoading) && (<p>No Boards</p>)}
                     {boards && boards.map((board, index) => (
                         <Link to={`/board/${board._id}`}>
                             <div className="board" key={board._id || index}>

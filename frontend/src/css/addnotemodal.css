@@ -82,6 +82,7 @@
     align-items: center;
     gap: 5px;
     margin-left: 5px;
+    margin-bottom: 10px;
 }
 
 .add-note-modal form input[type="checkbox"] {
@@ -105,7 +106,7 @@
 }
 
 
-.add-note-modal form .btn-container{
+.add-note-modal form .btn-container-addnote{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -113,7 +114,7 @@
     gap: 10px;
 }
 
-.add-note-modal form .btn-container button.add-btn{
+.add-note-modal form .btn-container-addnote button.add-btn{
     width: 100%;
     border: 2px solid black;
     padding: 6px;
@@ -130,7 +131,7 @@
     gap: 5px;
 }
 
-.add-note-modal form .btn-container button.disable{
+.add-note-modal form .btn-container-addnote button.disable{
     width: 100%;
     border: 2px solid rgb(52, 52, 52);
     padding: 6px;
@@ -146,7 +147,7 @@
 }
 
 
-.add-note-modal form .btn-container button.cancel-btn{
+.add-note-modal form .btn-container-addnote button.cancel-btn{
     width: 100%;
     border: 2px solid black;
     padding: 6px;
@@ -163,7 +164,7 @@
     gap: 5px;
 }
 
-.add-note-modal form .btn-container button:hover{
+.add-note-modal form .btn-container-addnote button:hover{
     text-decoration: none;
     transform: translateY(-4px);
 }
@@ -212,4 +213,22 @@
     } 100% {
         opacity: 1;
     }
+}
+
+@media (max-width: 600px){
+    .add-note-modal form{
+        padding: 20px;
+        width: 90vw;
+        min-width: 90vw;
+        height: auto;
+    }
+    
+    .add-note-modal form .btn-container-addnote button.add-btn{
+        font-size: 1.3rem;
+    }
+
+    .add-note-modal form .btn-container-addnote button.cancel-btn{
+        font-size: 1.3rem;
+    }
+
 }
