@@ -78,10 +78,38 @@
     text-decoration: underline;
 }
 
+@media (max-width: 600px){
+    #login .login-form{
+        width: 90vw;
+        padding: 10px;
+    }
 
+    #login .login-form h1{
+        font-size: 2rem;
+    }
 
+    #login .login-form form{
+        padding: 10px;
+    }
 
+    #login .login-form form label{
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
 
+    #login .login-form form input{
+        padding: 8px;
+        font-size: 1rem;
+        border: 2px solid rgb(176, 176, 176);
+    }
 
+    #login .login-form a p{
+        font-size: .9rem;
+    }
 
-
+    #login .login-form form button{
+        font-size: 1.2rem;
+        padding: 6px;
+    }
+}

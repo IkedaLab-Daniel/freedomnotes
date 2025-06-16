@@ -77,3 +77,39 @@
     font-weight: 600;
     text-decoration: underline;
 }
+
+@media (max-width: 600px){
+    #signup .signup-form{
+        width: 90vw;
+        padding: 10px;
+    }
+
+    #signup .signup-form h1{
+        font-size: 2rem;
+    }
+
+    #signup .signup-form form{
+        padding: 10px;
+    }
+
+    #signup .signup-form form label{
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    #signup .signup-form a p{
+        font-size: .7rem;
+    }
+
+    #signup .signup-form form input{
+        padding: 8px;
+        font-size: 1rem;
+        border: 2px solid rgb(176, 176, 176);
+    }
+
+    #signup .signup-form form button{
+        font-size: 1.2rem;
+        padding: 6px;
+    }
+}
