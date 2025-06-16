@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { notifySuccess, notifyError } from '../hooks/useToaster';
 import { Utils } from '../utils/Utils';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 // > assets
 import '../css/profileinfo.css';
@@ -23,6 +24,15 @@ const ProfileInfo = ({ user }) => {
 
     const { formatDate, softLogout } = Utils()
     const apiURL = import.meta.env.VITE_API_URL;
+    const { dispatch } = useAuthContext();
+
+    const handleLogout = () => {
+        setIsLoading(true);
+        localStorage.removeItem('user');
+        dispatch( { type: 'LOGOUT' } );
+        setIsLoading(false);
+        notifySuccess('Logged Out');        
+    }
 
     const fetchUserNote = async () => {
         setIsLoading(true)
@@ -105,14 +115,20 @@ const ProfileInfo = ({ user }) => {
                         className='back'
                         onMouseOver={() => {
                             setBackButton("< Home")
-                            console.log("Hello!")
                         }}
                         onMouseLeave={() => setBackButton("< Back")}
                     >
                         {backButton}
                     </span>
-                </Link>  
+                </Link> 
 
+                <div className="logout-super-container">
+                    <p 
+                        className="mobile-only logout-super"
+                        onClick={handleLogout}
+                    >{`X Logout`}</p> 
+                </div>
+                
                 <div className="my-notes">
                     <h2>My Notes</h2>
                     { isLoading && (<p>Loading ...</p>)}

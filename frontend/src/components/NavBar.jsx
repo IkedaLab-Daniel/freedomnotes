@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 // images
 import noteSVG from '../assets/note-fav.svg'
+import userwhiteSVG from '../assets/user-white.svg'
 import '../css/navbar.css'
 const NavBar = () => {
 
@@ -54,7 +55,12 @@ const NavBar = () => {
                 </div>
 
                 <div className="links-container">
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/" className='hide-on-mobile'>Home</Link>
+                    <Link to="/profile" className='hide-on-mobile'>Profile</Link>
+                    <Link to="/profile" className='show-on-mobile'>
+                        {user.username && (<p>@{user.username}</p>)}
+                        <img src={userwhiteSVG} alt="" />
+                    </Link>
                 </div>
 
                 <div className="user-buttons-container">

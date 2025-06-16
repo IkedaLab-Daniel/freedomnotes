@@ -213,7 +213,9 @@
     font-size: 1rem;
 }
 
-
+.mobile-only{
+    display: none;
+}
 
 @keyframes wiggle {
   0% { transform: rotate(-5deg); }
@@ -223,4 +225,46 @@
   60% { transform: rotate(-3deg); }
   75% { transform: rotate(3deg); }
   100% { transform: rotate(0deg); }
+}
+
+@media (max-width: 600px){
+    #profile-info .back{
+        position: absolute;
+        top: 1.2rem;
+        left: 1.4rem;
+        font-size: 1.4rem;
+        transition: .4s;
+    }
+
+    .mobile-only{
+        display: block;
+    }
+
+    .logout-super-container{
+        display: flex;
+        justify-content: end;
+    }
+
+    .logout-super{
+        display: inline-block;
+        color: rgb(232, 232, 232);
+        text-align: end;
+        font-size: 1.2rem;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        border: 2px solid red;
+        background: rgb(226, 45, 45);
+        z-index: 5;
+    }
+
+    #profile-info .username{
+        display: none;
+    }
+
+    #profile-info .my-notes h2{
+        margin: 10px;
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
 }
