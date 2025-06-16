@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams , Link } from "react-router-dom"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
+import { useAuthContext } from "../hooks/useAuthContext"
 import Notes from "../components/Notes"
 import Footer from "../components/Footer"
 import ViewNote from "../components/ViewNote"
@@ -19,7 +20,7 @@ const BoardView = () => {
 
     const  { board_id } = useParams()
     const apiURL = import.meta.env.VITE_API_URL;
-
+    const { user } = useAuthContext();
     const limitMessage = ( message ) => {
         if ( message.length > 70){
             const shortMessage = message.slice(0, 70)
@@ -110,10 +111,19 @@ const BoardView = () => {
                     { (totalNotes >= 20) ? (
                         <span className="full">Board is full!</span>
                     ) : (
-                        <p 
-                        className="addNote"
-                            onClick={() => setShowAddModal(true)}
-                        >+ Add Note</p>
+                        user.username && (
+                            <p 
+                            className="addNote"
+                                onClick={() => setShowAddModal(true)}
+                            >+ Add Note</p>
+                        )
+                        
+                    )}
+                    { !user.username && (
+                        <Link to="/login">
+                            <p>Log In to add note</p>
+                        </Link>
+                        
                     )}
                     
                 </div>
