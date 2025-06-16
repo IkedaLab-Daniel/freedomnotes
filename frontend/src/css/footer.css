@@ -15,7 +15,6 @@ footer .left p{
     font-size: 1.2rem;
 }
 
-
 footer .right{
     width: 30%;
     display: flex;
@@ -28,6 +27,7 @@ footer .right a, p{
     color: #bcbcbc;
     font-size: 1.2rem;
     text-decoration: none;
+    text-align: center;
 }
 
 footer .right p:hover{
@@ -38,4 +38,16 @@ footer .right p:hover{
 
 footer .right p.logout:hover{
     color: rgb(231, 105, 105);
+}
+
+@media (max-width: 600px){
+    footer{
+        padding: 30px 20px;
+    }
+
+    footer .left{
+        width: 70%;
+        display: flex;
+        justify-content: left;
+    }
 }

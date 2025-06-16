@@ -8,7 +8,7 @@ const NotLoggedIn = () => {
             <div id="notloggedin">
                 <div className="modal">
                     <h1>User not Logged In</h1>
-                    <div className="btn-container">
+                    <div className="btn-container-notloggedin">
                          <Link to = "/login">
                             <button className='login'>Log In</button>
                          </Link>

@@ -20,33 +20,34 @@
     text-align: center;
 }
 
-#notloggedin .modal .btn-container{
+#notloggedin .modal .btn-container-notloggedin{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
 }
 
-#notloggedin .modal .btn-container button{
+#notloggedin .modal .btn-container-notloggedin button{
     width: 100%;
     padding: 10px;
     color: black;
     transition: .4s;
 }
 
-#notloggedin .modal .btn-container button.login{
+#notloggedin .modal .btn-container-notloggedin button.login{
     background-color: rgba(255, 0, 0, 0);
     color: white;
     border: 2px solid white;
 }
 
-#notloggedin .modal .btn-container button.home{
+#notloggedin .modal .btn-container-notloggedin button.home{
     background-color: rgba(255, 252, 252, 0);
     color: white;
     border: 2px solid rgba(0, 0, 0, 0);
 }
 
 
-#notloggedin .modal .btn-container button:hover{
+#notloggedin .modal .btn-container-notloggedin button:hover{
     cursor: pointer;
     transform: translateY(-4px);
 }
