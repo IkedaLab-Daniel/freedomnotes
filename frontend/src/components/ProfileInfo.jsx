@@ -18,7 +18,8 @@ const ProfileInfo = ({ user }) => {
     const [ notes, setNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState(false)
     const [ deteleModal, setDeleteModal ] = useState(false)
-    const [ noteToDelete, setNoteToDelete ]= useState();
+    const [ noteToDelete, setNoteToDelete ] = useState();
+    const [ deleteLoading, setDeleteLoading ] = useState(false)
 
     const { formatDate, softLogout } = Utils()
     const apiURL = import.meta.env.VITE_API_URL;
@@ -57,7 +58,7 @@ const ProfileInfo = ({ user }) => {
     }, [])
 
     const unlistNoteByUser = async ( note_id ) => {
-        setIsLoading(true);
+        setDeleteLoading(true)
 
         try{
             const response = await fetch(`${apiURL}/api/note/archive-by-user?note_id=${note_id}&username=${user.username}`, {
@@ -70,19 +71,21 @@ const ProfileInfo = ({ user }) => {
             const json = await response.json()
 
             if (response.ok){
-                setIsLoading(false);
                 notifySuccess('Note Deleted')
                 fetchUserNote()
                 setDeleteModal(false)
+                setDeleteLoading(false)
+
             }
 
             if (!response.ok){
-                setIsLoading(false)
                 notifyError( json.error )
+                setDeleteLoading(false)
+
             }
 
         } catch (error){
-            setIsLoading(false);
+            setDeleteLoading(false)
             notifyError( 'Server offline ZZZ' )
             console.log(error)
         }
@@ -134,7 +137,7 @@ const ProfileInfo = ({ user }) => {
                                     </div>
                                 )}
 
-                                { (note.status !== "archived") && (
+                                { (note.status !== "archived" && note.status !== "pending") && (
                                     <div className="find-on-board-wrapper">
                                         <Link to={`/board/${note.board_id}`}>
                                             <img src={findBoardSVG} />
@@ -186,7 +189,11 @@ const ProfileInfo = ({ user }) => {
                     <div className="confirm-modal">
                         <h2>Delete Note?</h2>
                         <p>This action cannot be undo</p>
-                        <button className='confirm' onClick={() => unlistNoteByUser(noteToDelete)}>Confirm</button>
+                        { deleteLoading ? (
+                            <button className='confirm deleting'>Deleting...</button>
+                        ) : (
+                            <button className='confirm' onClick={() => unlistNoteByUser(noteToDelete)}>Confirm</button>
+                        )}
                         <button className='cancel' onClick={() => setDeleteModal(false)}>Cancel</button>
                     </div>
                 </div>
