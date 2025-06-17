@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import NavBar from './components/NavBar'
 import BoardView from './pages/BoardView'
 import Profile from './pages/Profile'
+import Admin from './pages/Admin'
 
 import { useAuthContext } from './hooks/useAuthContext'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
@@ -41,6 +42,10 @@ function App() {
             <Route
               path='/profile'
               element = {<Profile/>}
+            />
+            <Route
+              path='/admin'
+              element = {<Admin/>}
             />
           </Routes>
         </div>
