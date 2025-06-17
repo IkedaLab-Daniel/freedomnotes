@@ -73,6 +73,9 @@ const Admin = () => {
                             className={(sort=="date-des") && 'selected'} 
                             onClick={() => setSort('date-des')}>Date Descending</p>
                         <p 
+                            className={(sort=="date-asc") && 'selected'} 
+                            onClick={() => setSort('date-asc')}>Date Ascending</p>
+                        <p 
                             className={(sort=="pending") && 'selected'} 
                             onClick={() => setSort('pending')} >Pending Notes first</p>
                     </div>

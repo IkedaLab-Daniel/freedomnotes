@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom'
 // images
 import noteSVG from '../assets/note-fav.svg'
 import userwhiteSVG from '../assets/user-white.svg'
+import adminSVG from '../assets/admin.svg'
 import '../css/navbar.css'
+
 const NavBar = () => {
 
     const { user , dispatch } = useAuthContext();
@@ -57,6 +59,7 @@ const NavBar = () => {
                 <div className="links-container">
                     <Link to="/" className='hide-on-mobile'>Home</Link>
                     <Link to="/profile" className='hide-on-mobile'>Profile</Link>
+                    <Link to="/admin" className='hide-on-mobile'>Admin</Link>
                     <Link to="/profile" className='show-on-mobile'>
                         {user.username && (<p>@{user.username}</p>)}
                         <img src={userwhiteSVG} alt="" />
@@ -82,10 +85,15 @@ const NavBar = () => {
                             <button className='signup'>Sign Up</button>
                         </Link>
                     </>}
-                    
-                    
                 </div>
             </div>
+            <Link to="/admin">
+                <div className="admin-btn">
+                    <img src={adminSVG} alt="" />
+                    <p>Admin</p>
+                </div>
+            </Link>
+            
         </>
     )
 }

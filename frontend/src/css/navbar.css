@@ -103,6 +103,10 @@
     display: block;
 }
 
+.admin-btn{
+    display: none;
+}
+
 @media (max-width: 600px){
     #navbar .logo-container{
         display: flex;
@@ -145,5 +149,45 @@
 
     #navbar div:nth-child(3) { 
         display: none;
+    }
+
+    .admin-btn{
+        display: inline-block;
+        position: fixed;
+        bottom: 60px;
+        right: 20px;
+        background-color: #d9d9d9;
+        padding: 5px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        z-index: 6;
+        border: 2px solid black;
+        animation: right-to-left ease 1s forwards;
+        transition: .4s;
+    }
+
+    .admin-btn:hover{
+        transform: scale(105%);
+        cursor: pointer;
+    }
+
+
+    .admin-btn img{
+        width: 1.2rem;
+    }
+    
+    .admin-btn p{
+        color: black;
+        font-size: 1rem;
+    }
+}
+
+@keyframes right-to-left{
+    0%{
+        transform: translateX(100px);
+    } 100%{
+        transform: translateX(0px);
     }
 }

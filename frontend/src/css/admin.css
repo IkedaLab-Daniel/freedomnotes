@@ -152,6 +152,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+    margin-bottom: 10px;
 }
 
 .sort-container p{
