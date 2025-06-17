@@ -267,4 +267,8 @@
         font-size: 1.5rem;
         font-weight: 400;
     }
+
+    .confirm-modal{
+        width: 80vw;
+    }
 }

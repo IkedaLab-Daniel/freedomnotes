@@ -66,7 +66,9 @@ const NavBar = () => {
                 <div className="user-buttons-container">
                     { user.username &&
                     <>
-                        <span>{user.role}</span>
+                        <Link to="/profile">
+                            <span>@{user.username}</span>
+                        </Link>
                         <button onClick={handleLogout} className='logout'>Log Out</button>
                     </>}
 

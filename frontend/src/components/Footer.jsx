@@ -26,13 +26,13 @@ const Footer = () => {
                     <Link to="/profile">
                         <p>Profile</p>
                     </Link>
-                    {user && (<p className='logout' onClick={handleLogout}>Logout</p>)}
-                    {!user && (
+                    {user.username && (<p className='logout' onClick={handleLogout}>Logout</p>)}
+                    {!user.username && (
                         <Link to="/login">
                             <p>Log In</p>
                         </Link>
                     )}
-                    {!user && (
+                    {!user.username && (
                         <Link to="/signup">
                             <p>Sign Up</p>
                         </Link>
