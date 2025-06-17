@@ -15,6 +15,8 @@ import deleteNoteSVG from '../assets/delete-note.svg'
 import dateascSVG from '../assets/date-asc.svg'
 import datedesSVG from '../assets/date-des.svg'
 import pendingWhiteSVG from '../assets/pending-white.svg'
+import userSVG from '../assets/user.svg'
+import approveSVG from '../assets/approve.svg'
 
 const Admin = () => {
 
@@ -104,8 +106,15 @@ const Admin = () => {
                                 <p className='note-body'>{note.body}</p>
                                 { note.anon && (
                                     <div className="note-anon-wrapper">
-                                        <img src={anonSVG} alt="" />
-                                        <p className='note-anon'>Anonymous</p>
+                                        <img style={{width: "1.5rem"}} src={anonSVG} alt="" />
+                                        <p style={{fontSize: "1rem"}} className='note-anon'>Anonymous | @{note.user_username}</p>
+                                    </div>
+                                )}
+
+                                { !note.anon && (
+                                    <div className="note-anon-wrapper">
+                                        <img style={{width: "1.5rem"}} src={userSVG} alt="" />
+                                        <p style={{fontSize: "1rem"}} className='note-anon'>Public | @{note.user_username}</p>
                                     </div>
                                 )}
 
@@ -149,6 +158,13 @@ const Admin = () => {
                                         </>
                                     ) }
                                 </div>
+                                { note.status === "pending" && (
+                                    <div className="approve-container">
+                                        <img src={approveSVG} alt="" />
+                                        <p>Approve</p>
+                                    </div>
+                                )}
+                                
                             </div>
                         ))}
                     </div>

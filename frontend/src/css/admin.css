@@ -257,6 +257,25 @@
     display: none;
 }
 
+.approve-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 2px dashed black;
+    padding: 2px;
+    width: 100%;
+}
+
+.approve-container img{
+    width: 1.5rem;
+}
+
+.approve-container p{
+    color: black;
+    font-weight: 600;
+}
+
 @keyframes wiggle {
   0% { transform: rotate(-5deg); }
   15% { transform: rotate(5deg); }
@@ -310,5 +329,19 @@
 
     .confirm-modal{
         width: 80vw;
+    }
+}
+
+@media (max-width: 600px){
+    #admin .find-on-board-wrapper img{
+        width: 1.5rem;
+    }
+
+    #admin .delete-container img{
+        width: 1.5rem;
+    }
+
+    #admin .status-svg{
+        width: 1.5rem;
     }
 }

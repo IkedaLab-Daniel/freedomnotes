@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { toast } from  'react-hot-toast'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 // images
 import noteSVG from '../assets/note-fav.svg'
@@ -13,6 +13,7 @@ const NavBar = () => {
 
     const { user , dispatch } = useAuthContext();
     const [isLoading, setIsLoading] = useState(false);
+    const location = useLocation();
     
     // > toastah
     const notifySuccess = (message) => {
@@ -87,12 +88,15 @@ const NavBar = () => {
                     </>}
                 </div>
             </div>
-            <Link to="/admin">
-                <div className="admin-btn">
-                    <img src={adminSVG} alt="" />
-                    <p>Admin</p>
-                </div>
-            </Link>
+
+            {(location.pathname !== "/admin" && user.role === "admin") && (
+                <Link to="/admin">
+                    <div className="admin-btn">
+                        <img src={adminSVG} alt="" />
+                        <p>Admin</p>
+                    </div>
+                </Link>
+            )}
             
         </>
     )
