@@ -12,6 +12,9 @@ import deletedSVG from '../assets/deleted.svg'
 import anonSVG from '../assets/anon.svg'
 import findBoardSVG from '../assets/find-board.svg'
 import deleteNoteSVG from '../assets/delete-note.svg'
+import dateascSVG from '../assets/date-asc.svg'
+import datedesSVG from '../assets/date-des.svg'
+import pendingWhiteSVG from '../assets/pending-white.svg'
 
 const Admin = () => {
 
@@ -69,15 +72,25 @@ const Admin = () => {
                     <h2>All Notes:</h2>
                     <div className="sort-container">
                         <h3>Sort by:</h3>
-                        <p 
-                            className={(sort=="date-des") && 'selected'} 
-                            onClick={() => setSort('date-des')}>Date Descending</p>
-                        <p 
-                            className={(sort=="date-asc") && 'selected'} 
-                            onClick={() => setSort('date-asc')}>Date Ascending</p>
-                        <p 
-                            className={(sort=="pending") && 'selected'} 
-                            onClick={() => setSort('pending')} >Pending Notes first</p>
+                        <div>
+                            <img className={(sort=="date-des") && 'selected'} src={datedesSVG} alt="" />
+                            <p 
+                                className={(sort=="date-des") && 'selected'} 
+                                onClick={() => setSort('date-des')}>Date Descending</p>
+                        </div>
+                        <div>
+                            <img className={(sort=="date-asc") && 'selected'} src={dateascSVG} alt="" />
+                            <p 
+                                className={(sort=="date-asc") && 'selected'} 
+                                onClick={() => setSort('date-asc')}>Date Ascending</p>
+                        </div>
+                        <div>
+                            <img className={(sort=="pending") && 'selected'} src={pendingWhiteSVG} alt="" />
+                            <p 
+                                className={(sort=="pending") && 'selected'} 
+                                onClick={() => setSort('pending')} >Pending Notes first</p>
+                        </div>
+                        
                     </div>
                    
                     <div className="notes-container">

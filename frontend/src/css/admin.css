@@ -152,7 +152,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    gap: 5px;
 }
 
 .sort-container p{
@@ -163,6 +164,23 @@
     cursor: pointer;
     transform: translateY(-5px);
 }
+
+.sort-container div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.sort-container div img{
+    width: 1.4rem;
+    opacity: .6;
+}
+
+.sort-container div img.selected{
+    opacity: 1;
+}
+
 
 
 .sort-container p.selected{
