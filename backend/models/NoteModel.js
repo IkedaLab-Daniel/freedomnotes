@@ -57,28 +57,52 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
 
 // ? static for getting *ALL notes
 // * Pagination added !!!!!!!!!
-noteSchema.statics.getnotes = async function ( page = 1, limit = 1000 ){
+noteSchema.statics.getnotes = async function (page = 1, limit = 1000, sort = 'date-des') {
     const skip = (page - 1) * limit;
 
-    const notes = await this.find({})
-        .sort({ createdAt: -1})
-        .skip(skip)
-        .limit(limit)
-    
+    let notes;
     const total = await this.countDocuments({});
-    const totalPages = Math.ceil( total / limit );
+    const totalPages = Math.ceil(total / limit);
 
-    if (!notes){
-        throw Error ('No notes found')
+    if (sort === 'pending') {
+        // Prioritize "pending" status, then sort by createdAt descending
+        notes = await this.aggregate([
+            {
+                $addFields: {
+                    isPending: { $cond: [{ $eq: ['$status', 'pending'] }, 1, 0] }
+                }
+            },
+            { $sort: { isPending: -1, createdAt: -1 } },
+            { $skip: skip },
+            { $limit: limit }
+        ]);
+    } else if (sort === "date-asc"){
+        // ? Sort by createdAt ascending
+        notes = await this.find({})
+            .sort({ createdAt: 1 })
+            .skip(skip)
+            .limit(limit);
+    } else {
+        // ? Default: Sort by createdAt descending
+        notes = await this.find({})
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
+    }
+
+    if (!notes || notes.length === 0) {
+        throw Error('No notes found');
     }
 
     return {
-        currentPage : page,
+        currentPage: page,
         totalPages,
         totalNotes: total,
         notes
-    }
-}
+    };
+};
+
+
 
 // ? static for getting all APPROVED notes
 noteSchema.statics.getApproved = async function ( page = 1, limit = 10 ){

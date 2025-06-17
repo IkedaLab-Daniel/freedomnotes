@@ -14,9 +14,10 @@ const createnote = async (req,res) => {
 const getnotes = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 1000;
+    const sort = req.query.sort || "date-des"
 
     try {
-        const notes = await Note.getnotes( page, limit );
+        const notes = await Note.getnotes( page, limit, sort );
         res.status(201).json( {notes} )
     } catch (error){
         res.status(400).json( { error: error.message })
