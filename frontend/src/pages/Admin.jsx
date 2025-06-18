@@ -17,6 +17,7 @@ import datedesSVG from '../assets/date-des.svg'
 import pendingWhiteSVG from '../assets/pending-white.svg'
 import userSVG from '../assets/user.svg'
 import approveSVG from '../assets/approve.svg'
+import noteiconSVG from '../assets/note-icon.svg'
 
 const Admin = () => {
 
@@ -60,9 +61,29 @@ const Admin = () => {
         setActive('notes')
     }
 
-    const handleGetUsers = () =>{
+    const handleGetUsers = async () =>{
         setIsLoading(true)
+        try{
+            const response = await fetch(`${apiURL}/api/user/all`, {
+                headers : {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json();
 
+            if (response.ok){
+                setIsLoading(false);
+                setUsers(json.users);
+            }
+
+            if (!response.ok){
+                setIsLoading(false);
+                notifyError( json.error );
+            }
+        } catch (error){
+            setIsLoading(false);
+            notifyError(error.message)
+        }
         setActive('users')
     }
 
@@ -195,6 +216,32 @@ const Admin = () => {
                             </div>
                         ))}
                     </div>
+
+                    <div className="users-container">
+                        {(users && (active === 'users')) && users.map(user => (
+                            <div className="user" key={user._id}>
+                            <p className="user-username">
+                                <strong>Username:</strong> {user.username}
+                            </p>
+                            <p className="user-role">
+                                <strong>Role:</strong> {user.role}
+                            </p>
+                            <p className="user-id">
+                                <strong>ID:</strong> {user._id}
+                            </p>
+                            {/* Optionally show createdAt if available */}
+                            {user.createdAt && (
+                                <p className="user-date">
+                                <strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}
+                                </p>
+                            )}
+                            <div className="view-user-note-container">
+                                <img src={noteiconSVG} alt="" />
+                                <p className="view-notes">View Notes</p>
+                            </div>
+                            </div>
+                        ))}
+                        </div>
                 </div>
             </section>
         </>
