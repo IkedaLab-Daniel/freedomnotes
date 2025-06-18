@@ -23,6 +23,8 @@ const Admin = () => {
     const [ notes, setNotes ] = useState();
     const [ isLoading, setIsLoading ] = useState()
     const [ sort, setSort ] = useState('date-des')
+    const [ active, setActive ] = useState('notes')
+    const [ users, setUsers ] = useState()
 
     const { user } = useAuthContext()
     const { formatDate } = Utils()
@@ -53,6 +55,17 @@ const Admin = () => {
         }
     }
 
+    const handleGetNotes = () => {
+        SUDOfetchNotes()
+        setActive('notes')
+    }
+
+    const handleGetUsers = () =>{
+        setIsLoading(true)
+
+        setActive('users')
+    }
+
     // ? Put "user" as dependency
     // ! First app mount, user token is undefine
     // ! Second app mount, user token is define
@@ -69,34 +82,48 @@ const Admin = () => {
     return(
         <>
             <section id="admin">
-                <h1>{user.username}</h1>
+                <h1>@{user.username} | Admin Panel</h1>
                 <div className="all-notes">
-                    <h2>All Notes:</h2>
-                    <div className="sort-container">
-                        <h3>Sort by:</h3>
-                        <div>
-                            <img className={(sort=="date-des") && 'selected'} src={datedesSVG} alt="" />
-                            <p 
-                                className={(sort=="date-des") && 'selected'} 
-                                onClick={() => setSort('date-des')}>Date Descending</p>
-                        </div>
-                        <div>
-                            <img className={(sort=="date-asc") && 'selected'} src={dateascSVG} alt="" />
-                            <p 
-                                className={(sort=="date-asc") && 'selected'} 
-                                onClick={() => setSort('date-asc')}>Date Ascending</p>
-                        </div>
-                        <div>
-                            <img className={(sort=="pending") && 'selected'} src={pendingWhiteSVG} alt="" />
-                            <p 
-                                className={(sort=="pending") && 'selected'} 
-                                onClick={() => setSort('pending')} >Pending Notes first</p>
-                        </div>
-                        
+                    <div className="admin-navigation-container">
+                        <h2 
+                            className={(active === "notes") && 'active'}
+                            onClick={handleGetNotes}
+                        >All Notes</h2>
+
+                        <h2 
+                            className={(active === "users") && 'active'}
+                            onClick={handleGetUsers}
+                        >Users</h2>
                     </div>
+                    
+                    { (active === 'notes') && (
+                        <div className="sort-container">
+                            <h3>Sort by:</h3>
+                            <div>
+                                <img className={(sort=="date-des") && 'selected'} src={datedesSVG} alt="" />
+                                <p 
+                                    className={(sort=="date-des") && 'selected'} 
+                                    onClick={() => setSort('date-des')}>Date Descending</p>
+                            </div>
+                            <div>
+                                <img className={(sort=="date-asc") && 'selected'} src={dateascSVG} alt="" />
+                                <p 
+                                    className={(sort=="date-asc") && 'selected'} 
+                                    onClick={() => setSort('date-asc')}>Date Ascending</p>
+                            </div>
+                            <div>
+                                <img className={(sort=="pending") && 'selected'} src={pendingWhiteSVG} alt="" />
+                                <p 
+                                    className={(sort=="pending") && 'selected'} 
+                                    onClick={() => setSort('pending')} >Pending Notes first</p>
+                            </div>
+                            
+                        </div>
+                    )}
+                    
                    
                     <div className="notes-container">
-                        {notes && notes.map((note, index) => (
+                        {(notes && (active === 'notes')) && notes.map((note, index) => (
                             <div 
                                 className={`note ${note.status}`}
                                 key={note._id || index}
