@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose
 const Board = require('./BoardModel');
+const User = require('./UserModel')
 
 const noteSchema = new Schema({
     title: String,
@@ -52,6 +53,12 @@ noteSchema.statics.createnote = async function ( title, body, tags, board_id, us
         { $push: { notes: note._id.toString() }},
         { new: true }
     )
+
+    // ? Add the note's ID to User's note key
+    await User.findOneAndUpdate(
+        { username: user_username },
+        { $push: { notes: note._id.toString() } }
+    );
     return note
 }
 

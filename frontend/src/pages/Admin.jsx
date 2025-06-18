@@ -74,6 +74,7 @@ const Admin = () => {
             if (response.ok){
                 setIsLoading(false);
                 setUsers(json.users);
+                console.log(json.users)
             }
 
             if (!response.ok){
@@ -237,7 +238,8 @@ const Admin = () => {
                             )}
                             <div className="view-user-note-container">
                                 <img src={noteiconSVG} alt="" />
-                                <p className="view-notes">View Notes</p>
+                                <p className="view-notes">View Notes ({user.notes.length})</p>
+                                <span></span>
                             </div>
                             </div>
                         ))}

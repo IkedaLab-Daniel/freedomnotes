@@ -17,7 +17,8 @@ const userSchema = new Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
-    }
+    },
+    notes: [String]
 }, {timestamps : true});
 
 // ? Static Sign Up
