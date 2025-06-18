@@ -39,13 +39,17 @@ const signupUser = async (req, res) => {
     }
 } 
 
-// TODO
-const updateUser = (req, res) => {
-    console.log('Hello Ice')
-} 
+const getUsers = async (req, res) => {
+    try{
+        const users = await User.getUsers()
+        res.status(200).json({users})
+    } catch (error){
+        res.status(400).json({error: error.message})
+    }
+}
 
 module.exports = {
     loginUser,
     signupUser,
-    updateUser,
+    getUsers,
 }

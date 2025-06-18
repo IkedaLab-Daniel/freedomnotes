@@ -5,8 +5,11 @@ const express = require('express');
 const {
     loginUser,
     signupUser,
-    updateUser,
+    getUsers
 } = require('../controllers/userController')
+
+// > Auth
+const { requireAuth, requireAdmin } = require('../middlewares/requireAuth');
 
 const router = express.Router()
 
@@ -16,7 +19,8 @@ router.post('/login', loginUser)
 // signup route
 router.post('/signup', signupUser)
 
-// TODO update route
-router.patch('/:id', updateUser)
+// ? get all users
+router.get('/all', requireAuth, requireAdmin, getUsers)
+
 
 module.exports = router
