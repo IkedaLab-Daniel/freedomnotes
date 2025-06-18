@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { Navigate, Link } from "react-router-dom"
-import { notifyError } from "../hooks/useToaster"
+import { notifySuccess, notifyError } from "../hooks/useToaster"
 import { Utils } from "../utils/Utils"
 
 // > assets 
@@ -86,6 +86,35 @@ const Admin = () => {
             notifyError(error.message)
         }
         setActive('users')
+    }
+
+    const approveNote = async ( note_id ) => {
+        setIsLoading(true)
+
+        try{
+            const response = await fetch(`${apiURL}/api/note/${note_id}/approve`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })    
+            const json = await response.json();
+
+            if (response.ok){
+                setIsLoading(false);
+                notifySuccess('Approved!');
+                SUDOfetchNotes();
+            } 
+
+            if (!response.ok){
+                setIsLoading(false);
+                notifyError( json.error );
+            }
+        
+        } catch (error){
+            setIsLoading(false)
+            notifyError('Server offline ZZZ')
+        }
     }
 
     // ? Put "user" as dependency
@@ -208,7 +237,7 @@ const Admin = () => {
                                     ) }
                                 </div>
                                 { note.status === "pending" && (
-                                    <div className="approve-container">
+                                    <div className="approve-container" onClick={() => approveNote(note._id)}>
                                         <img src={approveSVG} alt="" />
                                         <p>Approve</p>
                                     </div>

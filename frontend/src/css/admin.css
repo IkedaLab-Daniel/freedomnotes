@@ -263,6 +263,11 @@
     border: 2px dashed black;
     padding: 2px;
     width: 100%;
+    transition: .4s;
+}
+
+.approve-container:hover{
+    border: 2px solid black;
 }
 
 .approve-container img{
