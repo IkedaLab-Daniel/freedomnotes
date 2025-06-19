@@ -96,7 +96,7 @@ Contributions are welcome! Please open an issue or submit a pull request. -->
 
 ## License
 
-Copyright (c) 2025 [Your Name]
+Copyright (c) 2025 [Mark Daniel V. Callejas | [IkedaLab-Daniel](https://github.com/IkedaLab-Daniel)]
 
 Permission is granted to view the source code for personal, non-commercial purposes only. Copying, downloading, modifying, redistributing, or republishing this code, in whole or in part, is strictly prohibited without explicit written permission from the author.
 
