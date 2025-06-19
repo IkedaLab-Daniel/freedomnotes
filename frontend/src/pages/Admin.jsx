@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import { useAuthContext } from "../hooks/useAuthContext"
-import { Navigate, Link } from "react-router-dom"
+import { Navigate, Link, useNavigate } from "react-router-dom"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
 import { Utils } from "../utils/Utils"
 import NotLoggedIn from "../components/NotLoggedIn"
+import ProfileInfo from "../components/ProfileInfo"
 
 // > assets 
 import '../css/admin.css';
@@ -31,6 +32,7 @@ const Admin = () => {
     const { user } = useAuthContext()
     const { formatDate, softLogout } = Utils()
     const apiURL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate()
 
     const SUDOfetchNotes = async () => {
         setIsLoading(true);
@@ -120,6 +122,12 @@ const Admin = () => {
             setIsLoading(false)
             notifyError('Server offline ZZZ')
         }
+    }
+
+    const handleViewUserNotes = (user) => {
+        console.log("function: handleViewUserNotes" )
+        localStorage.setItem("userDetail", JSON.stringify(user))
+        navigate('/userdetail')
     }
 
     // ? Put "user" as dependency
@@ -270,7 +278,7 @@ const Admin = () => {
                                 <strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}
                                 </p>
                             )}
-                            <div className="view-user-note-container">
+                            <div className="view-user-note-container" onClick={() => handleViewUserNotes(user)}>
                                 <img src={noteiconSVG} alt="" />
                                 <p className="view-notes">View Notes ({user.notes.length})</p>
                                 <span></span>

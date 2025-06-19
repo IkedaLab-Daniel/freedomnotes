@@ -8,6 +8,7 @@ import NavBar from './components/NavBar'
 import BoardView from './pages/BoardView'
 import Profile from './pages/Profile'
 import Admin from './pages/Admin'
+import ProfileInfoAdmin from './components/ProfileInfoAdmin'
 
 import { useAuthContext } from './hooks/useAuthContext'
 import { Toaster } from 'react-hot-toast'// > Stylesheet
@@ -46,6 +47,10 @@ function App() {
             <Route
               path='/admin'
               element = {<Admin/>}
+            />
+            <Route
+              path='/userdetail'
+              element = {<ProfileInfoAdmin/>}
             />
           </Routes>
         </div>
