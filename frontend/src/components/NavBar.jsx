@@ -60,7 +60,10 @@ const NavBar = () => {
                 <div className="links-container">
                     <Link to="/" className='hide-on-mobile'>Home</Link>
                     <Link to="/profile" className='hide-on-mobile'>Profile</Link>
-                    <Link to="/admin" className='hide-on-mobile'>Admin</Link>
+                    { (user.role && user.role === "admin") && (
+                        <Link to="/admin" className='hide-on-mobile'>Admin</Link>
+                    )}
+                    
                     <Link to="/profile" className='show-on-mobile'>
                         {user.username && (<p>@{user.username}</p>)}
                         <img src={userwhiteSVG} alt="" />

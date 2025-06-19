@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import { Navigate, Link } from "react-router-dom"
 import { notifySuccess, notifyError } from "../hooks/useToaster"
 import { Utils } from "../utils/Utils"
+import NotLoggedIn from "../components/NotLoggedIn"
 
 // > assets 
 import '../css/admin.css';
@@ -28,7 +29,7 @@ const Admin = () => {
     const [ users, setUsers ] = useState()
 
     const { user } = useAuthContext()
-    const { formatDate } = Utils()
+    const { formatDate, softLogout } = Utils()
     const apiURL = import.meta.env.VITE_API_URL;
 
     const SUDOfetchNotes = async () => {
@@ -49,6 +50,10 @@ const Admin = () => {
             if (!response.ok){
                 setIsLoading(false);
                 notifyError( json.error );
+                if (json.error === "Session Expired"){
+                    softLogout();
+                }
+                return
             }
         } catch (error){
             setIsLoading(false);
@@ -127,7 +132,7 @@ const Admin = () => {
         } 
     }, [user, sort])
 
-    if (user.role == "guest") return (<p>Loading...</p>);
+    if (user.role == "guest") return (<NotLoggedIn/>);
     if (!user || user.role !== "admin") return <Navigate to="/" replace />;
 
     return(
