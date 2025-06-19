@@ -26,10 +26,8 @@ const ProfileInfoAdmin = () => {
     const [ deteleModal, setDeleteModal ] = useState(false)
     const [ noteToDelete, setNoteToDelete ] = useState();
     const [ deleteLoading, setDeleteLoading ] = useState(false)
-
     const { formatDate, softLogout } = Utils()
     const apiURL = import.meta.env.VITE_API_URL;
-    const { dispatch } = useAuthContext();
 
     const userDetail = JSON.parse(localStorage.getItem("userDetail"))
     const { user } = useAuthContext()
@@ -70,7 +68,9 @@ const ProfileInfoAdmin = () => {
     }
 
     useEffect(() => {
-        fetchUserNote();
+        if (user.token && (user.role === "admin")){
+            fetchUserNote();
+        }   
     }, [])
 
     const unlistNoteByUser = async ( note_id ) => {
