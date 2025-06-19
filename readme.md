@@ -90,13 +90,15 @@ freedomnotes/
 - `PATCH  /api/note/archive-by-user` — Archive user's own note
 - ...and more (see backend routes for details)
 
-## Contributing
+<!-- ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! Please open an issue or submit a pull request. -->
 
 ## License
 
-_No license specified yet._
+Copyright (c) 2025 [Your Name]
+
+Permission is granted to view the source code for personal, non-commercial purposes only. Copying, downloading, modifying, redistributing, or republishing this code, in whole or in part, is strictly prohibited without explicit written permission from the author.
 
 ## Maintainer
 
