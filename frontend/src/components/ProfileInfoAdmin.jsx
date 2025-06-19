@@ -194,7 +194,7 @@ const ProfileInfoAdmin = () => {
                                     </div>
                                 </div>
                             ))}
-                            { !notes && (
+                            { (!notes && !isLoading) && (
                                 <p>{userDetail.username} has no notes yet.</p>
                             )}
                         </div>
