@@ -17,6 +17,8 @@ import deletedSVG from '../assets/deleted.svg'
 import anonSVG from '../assets/anon.svg'
 import findBoardSVG from '../assets/find-board.svg'
 import deleteNoteSVG from '../assets/delete-note.svg'
+import approveSVG from '../assets/approve.svg'
+
 
 const ProfileInfoAdmin = () => {
 
@@ -112,6 +114,35 @@ const ProfileInfoAdmin = () => {
         setNoteToDelete(note_id)
     }
 
+    const approveNote = async ( note_id ) => {
+        setIsLoading(true)
+
+        try{
+            const response = await fetch(`${apiURL}/api/note/${note_id}/approve`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            })    
+            const json = await response.json();
+
+            if (response.ok){
+                setIsLoading(false);
+                notifySuccess('Approved!');
+                fetchUserNote();
+            } 
+
+            if (!response.ok){
+                setIsLoading(false);
+                notifyError( json.error );
+            }
+        
+        } catch (error){
+            setIsLoading(false)
+            notifyError('Server offline ZZZ')
+        }
+    }
+
     if (user){
         return(
             <>
@@ -192,6 +223,14 @@ const ProfileInfoAdmin = () => {
                                             </>
                                         ) }
                                     </div>
+
+                                    { note.status === "pending" && (
+                                        <div className="approve-container" onClick={() => approveNote(note._id)}>
+                                            <img src={approveSVG} alt="" />
+                                            <p>Approve</p>
+                                        </div>
+                                    )}
+                                                                    
                                 </div>
                             ))}
                             { (!notes && !isLoading) && (
