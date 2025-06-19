@@ -68,10 +68,10 @@ const ProfileInfoAdmin = () => {
     }
 
     useEffect(() => {
-        if (user.token && (user.role === "admin")){
+        if (user.token, user.role === "admin"){
             fetchUserNote();
         }   
-    }, [])
+    }, [user])
 
     const unlistNoteByUser = async ( note_id ) => {
         setDeleteLoading(true)

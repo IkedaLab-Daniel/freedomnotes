@@ -141,7 +141,7 @@ noteSchema.statics.getUserNote = async function ( username ){
         throw Error("Detail needed not provided.")
     }
 
-    const notes = await this.find({ user_username : username})
+    const notes = await this.find({ user_username : username}).sort({ createdAt: -1})
 
     return notes;
 }

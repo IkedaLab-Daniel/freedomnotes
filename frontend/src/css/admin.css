@@ -327,6 +327,12 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+    transition: .4s;
+}
+
+#admin .users-container .user .view-user-note-container:hover{
+    transform: scale(105%);
+    cursor: pointer;
 }
 
 #admin .users-container .user .view-user-note-container img{
@@ -335,7 +341,7 @@
 
 
 #admin .users-container .user .view-notes{
-    color: #c1c781;
+    color: #cfd77a;
     font-size: 1.5rem;
     font-weight: 600;
 }
