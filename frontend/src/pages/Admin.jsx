@@ -110,7 +110,7 @@ const Admin = () => {
             if (response.ok){
                 setIsLoading(false);
                 notifySuccess('Approved!');
-                SUDOfetchNotes();
+                SUDOfetchNotes()
             } 
 
             if (!response.ok){
